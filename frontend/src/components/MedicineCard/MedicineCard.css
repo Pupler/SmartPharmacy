@@ -1,0 +1,131 @@
+/* Main card container */
+.medicine-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 280px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect for card */
+.medicine-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Header section with medicine name and prescription badge */
+.medicine-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+/* Medicine name styling */
+.medicine-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  flex: 1;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Prescription badge for medicines requiring prescription */
+.prescription-badge {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  color: #92400e;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  border: 1px solid #fbbf24;
+}
+
+/* Main content area that pushes button to bottom */
+.medicine-content {
+  flex: 1;
+  margin-top: 0.5rem;
+}
+
+/* Price display */
+.medicine-price {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #059669;
+  margin: 1rem 0;
+  letter-spacing: -0.5px;
+}
+
+/* Stock status indicator */
+.stock-status {
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  display: inline-block;
+}
+
+.stock-status.in-stock {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.stock-status.out-of-stock {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Add to cart button */
+.add-to-cart-btn {
+  width: 100%;
+  padding: 0.875rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: auto;
+}
+
+.add-to-cart-btn:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  transform: scale(1.02);
+}
+
+.add-to-cart-btn.added {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  cursor: default;
+}
+
+.add-to-cart-btn:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+  .medicine-card {
+    min-height: 260px;
+    padding: 1.25rem;
+  }
+  
+  .medicine-name {
+    font-size: 1.1rem;
+  }
+  
+  .medicine-price {
+    font-size: 1.5rem;
+  }
+}

@@ -2,12 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
 }
 
 html, body, #root {
   width: 100%;
   min-height: 100vh;
-  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
@@ -111,6 +111,15 @@ body {
   z-index: -1;
 }
 
+/* Grid for medicines */
+.medicine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+  align-items: stretch;
+}
+
 /* FOOTER - Stylish and informative */
 .footer {
   width: 100%;
@@ -179,6 +188,11 @@ body {
   
   .main {
     padding: 2rem 1.5rem;
+  }
+  
+  .medicine-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
   
   .footer {

@@ -20,6 +20,10 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
 
     const isInStock = stock > 0;
 
+    const handleAddToCart = () => {
+        setIsAdded(true);
+    };
+
     return (
         <div className={`medicine-card medicine-card${id}`}>
             <div className="medicine-header">
@@ -37,7 +41,10 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
                 </div>
             </div>
 
-            <button className={`add-to-cart-btn ${isAdded ? "added" : ""}`} disabled={!isInStock || isAdded}>
+            <button className={`add-to-cart-btn ${isAdded ? "added" : ""}`}
+                    disabled={!isInStock || isAdded}
+                    onClick={handleAddToCart}
+            >
                 {isAdded ? "Added to Cart" : "Add to Cart"}
             </button>
         </div>

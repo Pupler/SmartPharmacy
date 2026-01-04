@@ -29,7 +29,12 @@ function App() {
       <main className="main">
         <div className="medicine-grid">
           {medicines.map(medicine => (
-            <MedicineCard key={medicine.id} id={medicine.id} name={medicine.name} price={medicine.price} stock={medicine.stock} requiresPrescription={medicine.requiresPrescription}></MedicineCard>
+            <MedicineCard key={medicine.id}
+            id={medicine.id}
+            name={medicine.name}
+            price={medicine.price}
+            stock={medicine.stock}
+            requiresPrescription={medicine.requiresPrescription}></MedicineCard>
           ))}
         </div>
       </main>

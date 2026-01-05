@@ -4,6 +4,12 @@ import MedicineCard from './components/MedicineCard/MedicineCard';
 
 function App() {
   const [search, setSearch] = useState('')
+  const [cart, setCart] = useState<any[]>([]);
+
+  const handleAddToCart = (id: number, name: string, price: number) => {
+    setCart(prev => [...prev, { id, name, price }]);
+    console.log(`${name} was added to card`); // Test console log
+  };
 
   const medicines = [
     { id: 1, name: "Paracetamol", price: 45, stock: 50, requiresPrescription: false },
@@ -34,9 +40,20 @@ function App() {
             name={medicine.name}
             price={medicine.price}
             stock={medicine.stock}
-            requiresPrescription={medicine.requiresPrescription}></MedicineCard>
+            requiresPrescription={medicine.requiresPrescription}
+            onAddToCart={handleAddToCart}
+            />
           ))}
         </div>
+
+        {cart.length > 0 && (
+          <div className="cart-preview">
+            <h3>🛒 Cart ({cart.length} items)</h3>
+            {cart.map((item, index) => (
+              <div key={index}>{item.name} - {item.price}€</div>
+            ))}
+          </div>
+        )}
       </main>
       
       <footer className="footer">

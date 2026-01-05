@@ -7,6 +7,7 @@ interface MedicineCardProps {
     price: number;
     stock: number;
     requiresPrescription: boolean;
+    onAddToCart: (id: number, name: string, price: number) => void;
 }
 
 const MedicineCard: React.FC<MedicineCardProps> = ({
@@ -14,15 +15,12 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
     name,
     price,
     stock,
-    requiresPrescription
+    requiresPrescription,
+    onAddToCart
+
 }) => {
-    const [isAdded, setIsAdded] = useState(false);
 
     const isInStock = stock > 0;
-
-    const handleAddToCart = () => {
-        setIsAdded(true);
-    };
 
     return (
         <div className={`medicine-card medicine-card${id}`}>
@@ -41,11 +39,11 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
                 </div>
             </div>
 
-            <button className={`add-to-cart-btn ${isAdded ? "added" : ""}`}
-                    disabled={!isInStock || isAdded}
-                    onClick={handleAddToCart}
+            <button className="add-to-cart-btn"
+                    disabled={!isInStock}
+                    onClick={() => onAddToCart(id, name, price)}
             >
-                {isAdded ? "Added to Cart" : "Add to Cart"}
+                Add To Cart
             </button>
         </div>
     );

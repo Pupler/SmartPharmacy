@@ -98,6 +98,14 @@ body {
   background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
 }
 
+.cart-preview {
+  background: white;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
 /* Minimalistic grid for future content */
 .main::after {
   content: '';

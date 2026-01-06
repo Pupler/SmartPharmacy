@@ -9,6 +9,14 @@ function App() {
 
   const [isCartOpen, setIsCartOpen] = useState(false);
 
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+    document.body.classList.toggle('dark-theme');
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+  }
+
   const addToCart = (id: number, name: string, price: number) => {
     setCart(prev => [...prev, { id, name, price }]);
   };
@@ -51,6 +59,10 @@ function App() {
             {cart.length > 0 && (
               <span className="cart-badge">{cart.length}</span>
             )}
+          </button>
+
+          <button onClick={toggleTheme}>
+            {isDarkMode ? '☀️' : '🌙'}
           </button>
         </div>
       </header>

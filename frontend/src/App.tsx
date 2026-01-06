@@ -4,11 +4,21 @@ import MedicineCard from './components/MedicineCard/MedicineCard';
 
 function App() {
   const [search, setSearch] = useState('')
+
   const [cart, setCart] = useState<any[]>([]);
 
-  const handleAddToCart = (id: number, name: string, price: number) => {
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const addToCart = (id: number, name: string, price: number) => {
     setCart(prev => [...prev, { id, name, price }]);
-    console.log(`${name} was added to card`); // Test console log
+  };
+
+  const removeFromCart = (id: number) => {
+    setCart(cart.filter(item => item.id !== id))
+  };
+  
+  const clearCart = () => {
+    setCart([]);
   };
 
   const medicines = [
@@ -24,15 +34,29 @@ function App() {
     <div className="app">
       <header className="header">
         <h1>Smart Pharmacy</h1>
-        <input 
-          type="text" 
-          placeholder="Search medicines..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+
+        <div className="header-controls">
+          <input 
+            type="text" 
+            placeholder="Search medicines..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          
+          <button 
+            className="cart-icon-btn"
+            onClick={() => setIsCartOpen(!isCartOpen)}
+          >
+            🛒
+            {cart.length > 0 && (
+              <span className="cart-badge">{cart.length}</span>
+            )}
+          </button>
+        </div>
       </header>
       
       <main className="main">
+        
         <div className="medicine-grid">
           {medicines.map(medicine => (
             <MedicineCard key={medicine.id}
@@ -41,19 +65,51 @@ function App() {
             price={medicine.price}
             stock={medicine.stock}
             requiresPrescription={medicine.requiresPrescription}
-            onAddToCart={handleAddToCart}
+            onAddToCart={addToCart}
+            onRemoveFromCart={removeFromCart}
             />
           ))}
         </div>
 
-        {cart.length > 0 && (
-          <div className="cart-preview">
-            <h3>🛒 Cart ({cart.length} items)</h3>
-            {cart.map((item, index) => (
-              <div key={index}>{item.name} - {item.price}€</div>
-            ))}
+        {isCartOpen && (
+          <div className="cart-modal-overlay" onClick={() => setIsCartOpen(false)}>
+            <div className="cart-modal" onClick={(e) => e.stopPropagation()}>
+              <div className="cart-header">
+                <h3>🛒 Your Cart ({cart.length})</h3>
+                <button className="close-btn" onClick={() => setIsCartOpen(false)}>×</button>
+              </div>
+              
+              <div className="cart-items">
+                {cart.length === 0 ? (
+                  <p className="empty-cart">Your cart is empty</p>
+                ) : (
+                  cart.map(item => (
+                    <div key={item.id} className="cart-item">
+                      <span>{item.name}</span>
+                      <span>{item.price}€</span>
+                      <button 
+                        onClick={() => removeFromCart(item.id)}
+                        className="remove-btn"
+                      >❌</button>
+                    </div>
+                  ))
+                )}
+              </div>
+              
+              {cart.length > 0 && (
+                <div className="cart-footer">
+                  <div className="cart-total">
+                    Total: {cart.reduce((sum, item) => sum + item.price, 0)}€
+                  </div>
+                  <button onClick={clearCart} className="clear-btn">
+                    Clear All
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         )}
+
       </main>
       
       <footer className="footer">

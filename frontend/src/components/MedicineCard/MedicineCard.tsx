@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './MedicineCard.css';
 
 interface MedicineCardProps {
@@ -8,6 +8,7 @@ interface MedicineCardProps {
     stock: number;
     requiresPrescription: boolean;
     onAddToCart: (id: number, name: string, price: number) => void;
+    onRemoveFromCart: (id: number) => void;
 }
 
 const MedicineCard: React.FC<MedicineCardProps> = ({
@@ -17,7 +18,6 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
     stock,
     requiresPrescription,
     onAddToCart
-
 }) => {
 
     const isInStock = stock > 0;

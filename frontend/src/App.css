@@ -5,54 +5,135 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+/* Ensure full height for root elements */
 html, body, #root {
   width: 100%;
   min-height: 100vh;
 }
 
+/* =========================================== */
+/* CSS VARIABLES FOR THEMES */
+/* =========================================== */
+
+/* Light theme (default) */
 :root {
-  --bg-color: #1a1a1a;
-  --text-color: white;
-
+  /* Background colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-header: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+  --bg-footer: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --bg-card: #ffffff;
+  --bg-modal: #ffffff;
+  --bg-input: rgba(255, 255, 255, 0.15);
+  
+  /* Text colors */
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-header: #ffffff;
+  --text-footer: #cbd5e1;
+  --text-price: #059669;
+  --text-in-stock: #065f46;
+  --text-out-of-stock: #991b1b;
+  
+  /* Border colors */
+  --border-primary: #e2e8f0;
+  --border-secondary: #f1f5f9;
+  
+  /* Accent colors */
+  --accent-primary: #3b82f6;
+  --accent-secondary: #ef4444;
+  --accent-success: #10b981;
+  --accent-warning: #f59e0b;
+  
+  /* Shadow */
+  --shadow-card: 0 4px 15px rgba(0, 0, 0, 0.1);
+  --shadow-modal: -5px 0 25px rgba(0, 0, 0, 0.15);
+  --shadow-header: 0 4px 20px rgba(0, 0, 0, 0.1);
+  
+  /* Badge colors */
+  --badge-bg: #fef3c7;
+  --badge-text: #92400e;
+  --cart-badge-bg: #ef4444;
+  --cart-badge-text: #ffffff;
 }
 
+/* Dark theme */
 .dark-theme {
-  --bg-color: white;
-  --text-color: black;
+  /* Background colors */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-header: linear-gradient(135deg, #0c4a6e 0%, #075985 100%);
+  --bg-footer: linear-gradient(135deg, #020617 0%, #0f172a 100%);
+  --bg-card: #1e293b;
+  --bg-modal: #1e293b;
+  --bg-input: rgba(255, 255, 255, 0.1);
+  
+  /* Text colors */
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-header: #ffffff;
+  --text-footer: #94a3b8;
+  --text-price: #34d399;
+  --text-in-stock: #86efac;
+  --text-out-of-stock: #fca5a5;
+  
+  /* Border colors */
+  --border-primary: #334155;
+  --border-secondary: #475569;
+  
+  /* Accent colors */
+  --accent-primary: #60a5fa;
+  --accent-secondary: #f87171;
+  --accent-success: #34d399;
+  --accent-warning: #fbbf24;
+  
+  /* Shadow */
+  --shadow-card: 0 4px 15px rgba(0, 0, 0, 0.3);
+  --shadow-modal: -5px 0 25px rgba(0, 0, 0, 0.4);
+  --shadow-header: 0 4px 20px rgba(0, 0, 0, 0.3);
+  
+  /* Badge colors */
+  --badge-bg: #78350f;
+  --badge-text: #fef3c7;
+  --cart-badge-bg: #dc2626;
+  --cart-badge-text: #ffffff;
 }
 
+/* Apply theme variables to body */
 body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+/* =========================================== */
+/* APP CONTAINER */
+/* =========================================== */
 
 .app {
   width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  backdrop-filter: blur(10px);
+  background-color: var(--bg-primary);
 }
 
-/* HEADER - Modern and professional */
+/* =========================================== */
+/* HEADER STYLES */
+/* =========================================== */
+
 .header {
   width: 100%;
-  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
-  color: white;
+  background: var(--bg-header);
+  color: var(--text-header);
   padding: 1.5rem 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  justify-content: space-between;
+  box-shadow: var(--shadow-header);
   display: flex;
+  justify-content: space-between;
   align-items: center;
   position: sticky;
   top: 0;
   z-index: 100;
-}
-
-.header-controls {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
 }
 
 .header h1 {
@@ -62,24 +143,44 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-align: center;
   letter-spacing: -0.5px;
 }
 
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Theme toggle button */
+.theme-toggle-btn {
+  background: var(--bg-input);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  color: var(--text-header);
+  padding: 0.6rem 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Search input */
 .header input {
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  display: block;
   padding: 0.9rem 1.5rem;
   border: none;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--bg-input);
   backdrop-filter: blur(10px);
-  color: white;
+  color: var(--text-header);
   font-size: 1rem;
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 300px;
 }
 
 .header input::placeholder {
@@ -94,7 +195,47 @@ body {
   transform: translateY(-2px);
 }
 
-/* MAIN CONTENT */
+/* =========================================== */
+/* CART ICON STYLES */
+/* =========================================== */
+
+.cart-icon-btn {
+  background: var(--bg-input);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  color: var(--text-header);
+  padding: 0.6rem 1rem;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cart-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.cart-badge {
+  background: var(--cart-badge-bg);
+  color: var(--cart-badge-text);
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+/* =========================================== */
+/* MAIN CONTENT AREA */
+/* =========================================== */
+
 .main {
   flex: 1;
   width: 100%;
@@ -104,7 +245,7 @@ body {
   position: relative;
 }
 
-/* Add decorative elements for modern look */
+/* Decorative gradient line */
 .main::before {
   content: '';
   position: absolute;
@@ -112,35 +253,38 @@ body {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+  background: linear-gradient(90deg, transparent, var(--border-primary), transparent);
 }
 
-/* Cart Icon */
-.cart-icon-btn {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  position: relative;
-  padding: 0.5rem;
-}
-
-.cart-badge {
+/* Background decorative element */
+.main::after {
+  content: '';
   position: absolute;
-  top: -5px;
-  right: -5px;
-  background: #ef4444;
-  color: white;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 0.7rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(30, 64, 175, 0.05) 0%, transparent 70%);
+  z-index: -1;
 }
 
-/* Cart Modal */
+/* =========================================== */
+/* MEDICINE GRID LAYOUT */
+/* =========================================== */
+
+.medicine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+  align-items: stretch;
+}
+
+/* =========================================== */
+/* CART MODAL STYLES */
+/* =========================================== */
+
 .cart-modal-overlay {
   position: fixed;
   top: 0;
@@ -154,10 +298,10 @@ body {
 }
 
 .cart-modal {
-  background: white;
+  background: var(--bg-modal);
   width: 350px;
   height: 100vh;
-  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-modal);
   display: flex;
   flex-direction: column;
 }
@@ -167,7 +311,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem;
-  border-bottom: 2px solid #f1f5f9;
+  border-bottom: 2px solid var(--border-secondary);
 }
 
 .close-btn {
@@ -175,7 +319,7 @@ body {
   border: none;
   font-size: 1.8rem;
   cursor: pointer;
-  color: #64748b;
+  color: var(--text-secondary);
 }
 
 .cart-items {
@@ -186,7 +330,7 @@ body {
 
 .empty-cart {
   text-align: center;
-  color: #94a3b8;
+  color: var(--text-secondary);
   padding: 2rem;
 }
 
@@ -195,19 +339,20 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--border-primary);
+  color: var(--text-primary);
 }
 
 .remove-btn {
   background: none;
   border: none;
-  color: #ef4444;
+  color: var(--accent-secondary);
   cursor: pointer;
   font-size: 1rem;
 }
 
 .cart-footer {
-  border-top: 2px solid #f1f5f9;
+  border-top: 2px solid var(--border-secondary);
   padding: 1.5rem;
 }
 
@@ -215,51 +360,33 @@ body {
   font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: #059669;
+  color: var(--text-price);
 }
 
 .clear-btn {
   width: 100%;
   padding: 0.8rem;
-  background: #ef4444;
+  background: var(--accent-secondary);
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
+  transition: background-color 0.3s ease;
 }
 
 .clear-btn:hover {
   background: #dc2626;
 }
 
-/* Minimalistic grid for future content */
-.main::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(30, 64, 175, 0.05) 0%, transparent 70%);
-  z-index: -1;
-}
+/* =========================================== */
+/* FOOTER STYLES */
+/* =========================================== */
 
-/* Grid for medicines */
-.medicine-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 25px;
-  margin-top: 30px;
-  align-items: stretch;
-}
-
-/* FOOTER - Stylish and informative */
 .footer {
   width: 100%;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  color: #cbd5e1;
+  background: var(--bg-footer);
+  color: var(--text-footer);
   padding: 2.5rem 2rem;
   text-align: center;
   margin-top: auto;
@@ -290,10 +417,13 @@ body {
   transform: translateX(-50%);
   width: 60px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+  background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
 }
 
-/* Add animation for the entire interface */
+/* =========================================== */
+/* ANIMATIONS */
+/* =========================================== */
+
 @media (prefers-reduced-motion: no-preference) {
   .header, .main, .footer {
     animation: fadeIn 0.8s ease-out;
@@ -311,21 +441,55 @@ body {
   }
 }
 
-/* Responsiveness */
+/* =========================================== */
+/* RESPONSIVE DESIGN */
+/* =========================================== */
+
+/* Tablet screens (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .header-controls {
+    max-width: 90%;
+  }
+  
+  .cart-modal {
+    width: 320px;
+  }
+  
+  .medicine-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+/* Mobile screens (max-width: 768px) */
 @media (max-width: 768px) {
   .header {
-    padding: 1.2rem 1.5rem;
     flex-direction: column;
-  }
-
-  .header-controls {
-    width: 100%;
     gap: 1rem;
+    padding: 1rem;
   }
   
   .header h1 {
     font-size: 1.8rem;
-    margin-bottom: 0.8em;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .header-controls {
+    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .header input {
+    width: 100%;
+    max-width: 100%;
+    order: 1;
+  }
+  
+  .theme-toggle-btn,
+  .cart-icon-btn {
+    order: 2;
+    align-self: flex-end;
   }
   
   .main {
@@ -342,38 +506,117 @@ body {
   }
 }
 
-/* Add hover effect for interactive elements */
-.header input:hover {
-  background: rgba(255, 255, 255, 0.2);
-  cursor: pointer;
+/* Small mobile screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .header input {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
+    min-width: unset;
+  }
+  
+  .medicine-card {
+    min-height: 240px;
+    padding: 1.2rem;
+  }
+  
+  .cart-modal {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .cart-header {
+    padding: 1.2rem;
+  }
+  
+  .cart-item {
+    padding: 0.8rem;
+  }
+  
+  .cart-footer {
+    padding: 1.2rem;
+  }
 }
 
-/* Scrollbar style (webkit browsers) */
+/* Very small screens (max-width: 360px) */
+@media (max-width: 360px) {
+  .header {
+    padding: 0.8rem;
+  }
+  
+  .header h1 {
+    font-size: 1.3rem;
+  }
+  
+  .header input {
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .cart-icon-btn {
+    font-size: 1.1rem;
+    padding: 0.5rem;
+  }
+  
+  .cart-badge {
+    width: 18px;
+    height: 18px;
+    font-size: 0.65rem;
+  }
+}
+
+/* Landscape orientation on mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .cart-modal {
+    height: 100vh;
+    max-height: 100vh;
+  }
+  
+  .cart-items {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+}
+
+/* =========================================== */
+/* UTILITY STYLES */
+/* =========================================== */
+
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: var(--bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #94a3b8;
+  background: var(--text-secondary);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: var(--text-primary);
 }
 
-/* Text selection */
+/* Text selection styling */
 ::selection {
-  background: rgba(30, 64, 175, 0.2);
-  color: #1e293b;
+  background: rgba(30, 64, 175, 0.3);
+  color: var(--text-primary);
 }
 
-/* Focus accessibility improvement */
+/* Focus outline for accessibility */
 :focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--accent-primary);
   outline-offset: 2px;
+}
+
+/* Hover effect for interactive elements */
+.header input:hover {
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
 }

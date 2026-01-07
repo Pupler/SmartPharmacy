@@ -1,21 +1,22 @@
 /* Main card container */
 .medicine-card {
-  background: white;
+  background: var(--bg-card);
   border-radius: 16px;
   padding: 1.5rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  border: 1px solid #f1f5f9;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
   height: 100%;
   min-height: 280px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 /* Hover effect for card */
 .medicine-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--card-hover);
+  border-color: var(--primary);
 }
 
 /* Header section with medicine name and prescription badge */
@@ -31,7 +32,7 @@
 .medicine-name {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #1e293b;
+  color: var(--text-primary);
   flex: 1;
   margin: 0;
   line-height: 1.4;
@@ -49,6 +50,13 @@
   border: 1px solid #fbbf24;
 }
 
+/* Dark theme fix for prescription badge */
+.dark-theme .prescription-badge {
+  background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+  color: #fef3c7;
+  border-color: #92400e;
+}
+
 /* Main content area that pushes button to bottom */
 .medicine-content {
   flex: 1;
@@ -59,7 +67,7 @@
 .medicine-price {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #059669;
+  color: var(--primary);
   margin: 1rem 0;
   letter-spacing: -0.5px;
 }
@@ -74,20 +82,20 @@
 }
 
 .stock-status.in-stock {
-  background: #dcfce7;
-  color: #166534;
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success);
 }
 
 .stock-status.out-of-stock {
-  background: #fee2e2;
-  color: #991b1b;
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
 }
 
 /* Add to cart button */
 .add-to-cart-btn {
   width: 100%;
   padding: 0.875rem;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: var(--primary);
   color: white;
   border: none;
   border-radius: 10px;
@@ -98,18 +106,20 @@
   margin-top: auto;
 }
 
-.add-to-cart-btn:hover {
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-  transform: scale(1.02);
+.add-to-cart-btn:hover:not(:disabled):not(.added) {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .add-to-cart-btn.added {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: var(--success);
   cursor: default;
 }
 
 .add-to-cart-btn:disabled {
-  background: #cbd5e1;
+  background: var(--bg-secondary);
+  color: var(--text-muted);
   cursor: not-allowed;
   transform: none;
 }
@@ -128,4 +138,32 @@
   .medicine-price {
     font-size: 1.5rem;
   }
+}
+
+/* =========================================== */
+/* EXTRA: ENSURE DARK THEME WORKS */
+/* =========================================== */
+
+:root {
+  --bg-card: #ffffff;
+  --border-color: #f1f5f9;
+  --text-primary: #1e293b;
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --success: #10b981;
+  --danger: #ef4444;
+  --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  --card-hover: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.dark-theme {
+  --bg-card: #1e293b;
+  --border-color: #334155;
+  --text-primary: #f1f5f9;
+  --primary: #60a5fa;
+  --primary-dark: #3b82f6;
+  --success: #34d399;
+  --danger: #f87171;
+  --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  --card-hover: 0 12px 40px rgba(0, 0, 0, 0.3);
 }

@@ -9,7 +9,7 @@ function App() {
 
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);

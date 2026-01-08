@@ -416,3 +416,50 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# ============================================
+# SMART PHARMACY PROJECT SPECIFIC IGNORES
+# ============================================
+
+# Backend appsettings (except main)
+Backend/appsettings.Development.json
+Backend/appsettings.Production.json
+Backend/appsettings.Staging.json
+
+# Frontend React
+frontend/node_modules/
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/build/
+frontend/dist/
+frontend/.next/
+frontend/.cache/
+
+# IDE specific (VS Code)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Docker
+docker-compose.override.yml
+.env
+.dockerignore
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# Temp files
+*.tmp
+*.temp
+temp/

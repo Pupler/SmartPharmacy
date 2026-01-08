@@ -1,4 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using Backend.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Builder Service for database
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        new MySqlServerVersion(new Version(8, 0, 35)) // Version of MySQL
+));
 
 // CORS policy for React frontend
 builder.Services.AddCors(options =>

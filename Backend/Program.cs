@@ -5,10 +5,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Builder Service for database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    
     options.UseMySql(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        new MySqlServerVersion(new Version(8, 0, 35)) // Version of MySQL
-));
+        connectionString,
+        new MySqlServerVersion(new Version(10, 4, 27)),
+        options => options.EnableRetryOnFailure()
+    );
+});
 
 // CORS policy for React frontend
 builder.Services.AddCors(options =>
@@ -26,6 +31,28 @@ builder.Services.AddSwaggerGen(); // For API documentation
 
 var app = builder.Build();
 
+// Check database connection
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    
+    try
+    {
+        if (dbContext.CanConnect())
+        {
+            Console.WriteLine("✅ Database connected!");
+        }
+        else
+        {
+            Console.WriteLine("❌ Database not connected");
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"❌ Database error: {ex.Message}");
+    }
+}
+
 // Enable CORS
 app.UseCors("AllowReact");
 
@@ -36,7 +63,21 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseRouting();
+
+// Test endpoints
+app.MapGet("/", () => "SmartPharmacy API Server is running! 🚀");
+app.MapGet("/test", () => "Test endpoint works!");
+app.MapGet("/health", () => new { 
+    status = "healthy", 
+    timestamp = DateTime.UtcNow,
+    version = "1.0.0"
+});
+app.MapGet("/api/debug", () => new { 
+    message = "API debug endpoint",
+    endpoints = new[] { "/api/medicines", "/api/test" }
+});
+
 app.UseAuthorization();
 app.MapControllers(); // Maps controller routes
 

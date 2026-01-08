@@ -47,5 +47,17 @@ namespace Backend.Data
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
             });
         }
+
+        public bool CanConnect()
+        {
+            try
+            {
+                return Database.CanConnect();
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

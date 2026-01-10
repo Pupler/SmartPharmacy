@@ -2,6 +2,14 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import MedicineCard from './components/MedicineCard/MedicineCard';
 
+interface Medicine {
+  id: number;
+  name: string;
+  price: number;
+  stock: number;
+  requiresPrescription: boolean;
+}
+
 function App() {
   const [search, setSearch] = useState('')
 
@@ -10,6 +18,27 @@ function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const [medicines, setMedicines] = useState<Medicine[]>([]);
+
+  const [loading, setLoading] = useState(false);
+
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    setLoading(true);
+    fetch('http://localhost:5171/api/medicines')
+      .then(response => response.json())
+      .then(data => {
+        setMedicines(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError('Error while loading data!');
+        setLoading(false);
+        console.error(err);
+      });
+  }, []);
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
@@ -28,15 +57,6 @@ function App() {
   const clearCart = () => {
     setCart([]);
   };
-
-  const medicines = [
-    { id: 1, name: "Paracetamol", price: 45, stock: 50, requiresPrescription: false },
-    { id: 2, name: "Ibuprofen", price: 85, stock: 30, requiresPrescription: false },
-    { id: 3, name: "Amoxicillin", price: 120, stock: 15, requiresPrescription: true },
-    { id: 4, name: "Vitamin C", price: 55, stock: 0, requiresPrescription: false },
-    { id: 5, name: "Aspirin", price: 25, stock: 80, requiresPrescription: false },
-    { id: 6, name: "Codeine", price: 95, stock: 8, requiresPrescription: true }
-  ];
 
   return (
     <div className="app">

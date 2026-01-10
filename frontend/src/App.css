@@ -448,7 +448,7 @@ body {
 /* Tablet screens (max-width: 1024px) */
 @media (max-width: 1024px) {
   .header-controls {
-    max-width: 90%;
+    max-width: 100%;
   }
   
   .cart-modal {
@@ -463,37 +463,50 @@ body {
 /* Mobile screens (max-width: 768px) */
 @media (max-width: 768px) {
   .header {
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 15px;
+    align-items: center;
   }
-  
+
   .header h1 {
-    font-size: 1.8rem;
+    width: 100%;
     text-align: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 10px;
+    font-size: 2rem;
   }
-  
+
   .header-controls {
+    display: flex;
     width: 100%;
-    flex-direction: column;
-    gap: 1rem;
+    gap: 8px;
+    align-items: center;
   }
-  
-  .header input {
-    width: 100%;
-    max-width: 100%;
-    order: 1;
+
+  .header-controls input {
+    flex: 2;
+    min-width: 0;
+    padding: 0.7rem 1rem;
   }
-  
-  .theme-toggle-btn,
+
   .cart-icon-btn {
-    order: 2;
-    align-self: flex-end;
+    flex: 0.5;
+    min-width: 50px;
+    padding: 0.6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .header-controls > button:last-child {
+    flex: 0.5;
+    min-width: 50px;
+    padding: 0.6rem;
   }
   
   .main {
-    padding: 2rem 1.5rem;
+    padding: 1rem 1rem;
   }
   
   .medicine-grid {
@@ -508,14 +521,51 @@ body {
 
 /* Small mobile screens (max-width: 480px) */
 @media (max-width: 480px) {
-  .header h1 {
-    font-size: 1.5rem;
+  .header {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 15px;
+    align-items: center;
   }
-  
-  .header input {
-    padding: 0.8rem 1.2rem;
-    font-size: 0.95rem;
-    min-width: unset;
+
+  .header h1 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.6rem;
+  }
+
+  .header-controls {
+    display: flex;
+    width: 100%;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .main {
+    padding: 0.5rem 0.5rem;
+  }
+
+  .header-controls input {
+    flex: 2;
+    min-width: 0;
+    padding: 0.7rem 1rem;
+  }
+
+  .cart-icon-btn {
+    flex: 0.5;
+    min-width: 50px;
+    padding: 0.6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .header-controls > button:last-child {
+    flex: 0.5;
+    min-width: 50px;
+    padding: 0.6rem;
   }
   
   .medicine-card {

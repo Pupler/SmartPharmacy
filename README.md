@@ -7,6 +7,10 @@
 
 A modern full-stack web application for **medication management**, **pharmacy discovery**, and **personal health tracking**, built with clean architecture and real-world scalability in mind.
 
+## 📸 Preview
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e3ca2ea3-1e9e-41f9-9070-5f73b16cd60c" />
+
 ## ✨ Features (Planned)
 
 - 🔍 **Medication Search** — search by drug name, active substance, or symptoms  

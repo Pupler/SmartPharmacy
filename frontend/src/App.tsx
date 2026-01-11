@@ -13,7 +13,12 @@ interface Medicine {
 function App() {
   const [search, setSearch] = useState('')
 
-  const [cart, setCart] = useState<any[]>([]);
+  const [cart, setCart] = useState<Array<{
+    id: number;
+    name: string;
+    price: number;
+    quantity: number;
+  }>>([]);
 
   const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -47,7 +52,22 @@ function App() {
   }
 
   const addToCart = (id: number, name: string, price: number) => {
-    setCart(prev => [...prev, { id, name, price }]);
+    setCart(prevCart => {
+      const existingItemIndex = prevCart.findIndex(item => item.id === id);
+      
+      if (existingItemIndex >= 0) {
+        const updatedCart = [...prevCart];
+
+        updatedCart[existingItemIndex] = {
+          ...updatedCart[existingItemIndex],
+          quantity: updatedCart[existingItemIndex].quantity + 1
+        };
+
+        return updatedCart;
+      } else {
+        return [...prevCart, { id, name, price, quantity: 1 }];
+      }
+    });
   };
 
   const removeFromCart = (id: number) => {
@@ -118,7 +138,8 @@ function App() {
                   cart.map(item => (
                     <div key={item.id} className="cart-item">
                       <span>{item.name}</span>
-                      <span>{item.price}€</span>
+                      <span>×{item.quantity}</span>
+                      <span>{(item.price * item.quantity).toFixed(2)}€</span>
                       <button 
                         onClick={() => removeFromCart(item.id)}
                         className="remove-btn"
@@ -131,7 +152,7 @@ function App() {
               {cart.length > 0 && (
                 <div className="cart-footer">
                   <div className="cart-total">
-                    Total: {cart.reduce((sum, item) => sum + item.price, 0)}€
+                    Total: {(cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)).toFixed(2)}€
                   </div>
                   <button onClick={clearCart} className="clear-btn">
                     Clear All

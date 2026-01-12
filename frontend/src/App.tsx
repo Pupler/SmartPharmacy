@@ -30,6 +30,10 @@ function App() {
 
   const [error, setError] = useState('');
 
+  const filteredMedicines = medicines.filter(medicine =>
+    medicine.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   useEffect(() => {
     setLoading(true);
     fetch('http://localhost:5171/api/medicines')
@@ -110,7 +114,7 @@ function App() {
       <main className="main">
         
         <div className="medicine-grid">
-          {medicines.map(medicine => (
+          {filteredMedicines.map(medicine => (
             <MedicineCard key={medicine.id}
             id={medicine.id}
             name={medicine.name}

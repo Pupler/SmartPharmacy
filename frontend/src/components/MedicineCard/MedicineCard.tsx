@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './MedicineCard.css';
 
 interface MedicineCardProps {
@@ -24,12 +25,15 @@ const MedicineCard: React.FC<MedicineCardProps> = ({
 
     return (
         <div className={`medicine-card medicine-card${id}`}>
-            <div className="medicine-header">
-                <h3 className="medicine-name">{name}</h3>
-                {requiresPrescription && (
-                    <div className="prescription-badge">📋 Prescription Required</div>
-                )}
-            </div>
+            {/* Link to the medicine page */}
+            <Link to={`/medicine/${id}`} className="medicine-link">
+                <div className="medicine-header">
+                    <h3 className="medicine-name">{name}</h3>
+                    {requiresPrescription && (
+                        <div className="prescription-badge">📋 Prescription Required</div>
+                    )}
+                </div>
+            </Link>
 
             <div className="medicine-content">
                 <div className="medicine-price">{price} €</div>

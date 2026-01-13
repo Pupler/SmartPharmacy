@@ -75,6 +75,7 @@
 /* Stock status indicator */
 .stock-status {
   padding: 0.5rem 0.75rem;
+  margin-bottom: 20px;
   border-radius: 8px;
   font-weight: 600;
   font-size: 0.875rem;
@@ -122,6 +123,17 @@
   color: var(--text-muted);
   cursor: not-allowed;
   transform: none;
+}
+
+.medicine-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.medicine-link:hover .medicine-name {
+  color: #3b82f6;
+  text-decoration: underline;
 }
 
 /* Responsive design for mobile */

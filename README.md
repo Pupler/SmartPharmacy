@@ -13,14 +13,21 @@ A modern full-stack web application for **medication management**, **pharmacy di
 
 ## ✨ Features (Planned)
 
-- 🔍 **Medication Search** — search by drug name, active substance, or symptoms  
-- 📍 **Pharmacy Locator** — nearby pharmacies with availability info  
-- 💊 **Personal Medicine Cabinet** — medication tracking & schedules  
-- ⏰ **Smart Reminders** — dose and prescription notifications  
-- ⚠️ **Drug Interaction Checker** — safety checks for combinations  
-- 📊 **Symptom Tracker** — health monitoring over time  
-- 📅 **Prescription Management** — digital prescriptions  
-- 🔐 **User Authentication** — secure accounts & roles  
+- 🔍 **Simple Medication Search**  
+  Search by drug name only.
+- 📍 **Pharmacy List**  
+  Static list or map with a few pharmacies.
+- 💊 **My Medicine Cabinet**  
+  Add/remove medicines and view your list.
+- ⏰ **Basic Reminders**  
+  Simple notifications for taking medicine (e.g., browser alerts).
+- ⚠️ **Simple Interaction Checker**  
+  Warns about a few known dangerous combinations.
+- 📊 **Health Tracker (Basic)**  
+  Log symptoms or notes without analytics.
+- 🔐 **User Accounts**  
+  Simple login/logout (no roles required).
+
 
 ## 🛠️ Technology Stack
 

@@ -18,7 +18,18 @@ function HomePage() {
     name: string;
     price: number;
     quantity: number;
-  }>>([]);
+  }>>(() => {
+    try {
+      const saved = localStorage.getItem('smartPharmacyCart');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('smartPharmacyCart', JSON.stringify(cart));
+  }, [cart]);
 
   const [isCartOpen, setIsCartOpen] = useState(false);
 

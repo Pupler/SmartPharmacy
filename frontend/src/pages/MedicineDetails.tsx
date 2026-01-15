@@ -42,12 +42,6 @@ export default function MedicineDetailsPage() {
       });
   }, [id]);
 
-  const handleAddToCart = () => {
-    if (medicine) {
-      alert(`Added ${medicine.name} to cart!`);
-    }
-  };
-
   if (loading) {
     return (
       <div className="loading-container">
@@ -131,15 +125,7 @@ export default function MedicineDetailsPage() {
             </div>
           )}
 
-          <div className="action-buttons">
-            <button 
-              className="add-to-cart-btn"
-              onClick={handleAddToCart}
-              disabled={medicine.stock === 0}
-            >
-              {medicine.stock > 0 ? '🛒 Add to Cart' : 'Out of Stock'}
-            </button>
-            
+          <div className="action-buttons">            
             <Link to="/" className="continue-shopping">
               Continue Shopping
             </Link>

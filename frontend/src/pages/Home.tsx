@@ -172,6 +172,9 @@ function HomePage() {
                   <button onClick={clearCart} className="clear-btn">
                     Clear All
                   </button>
+                  <button className="process-order-btn">
+                    Process order
+                  </button>
                 </div>
               )}
             </div>

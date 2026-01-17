@@ -8,6 +8,8 @@ interface Medicine {
   price: number;
   stock: number;
   requiresPrescription: boolean;
+  category: string;
+  description: string;
 }
 
 function HomePage() {
@@ -132,6 +134,8 @@ function HomePage() {
             price={medicine.price}
             stock={medicine.stock}
             requiresPrescription={medicine.requiresPrescription}
+            category={medicine.category}
+            description={medicine.description}
             onAddToCart={addToCart}
             onRemoveFromCart={removeFromCart}
             />

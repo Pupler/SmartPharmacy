@@ -8,6 +8,8 @@ interface MedicineCardProps {
     price: number;
     stock: number;
     requiresPrescription: boolean;
+    category: string;
+    description: string;
     onAddToCart: (id: number, name: string, price: number) => void;
     onRemoveFromCart: (id: number) => void;
 }

@@ -41,6 +41,14 @@ namespace Backend.Data
                 entity.Property(e => e.RequiresPrescription)
                     .IsRequired()
                     .HasDefaultValue(false);
+
+                // Settings for Category
+                entity.Property(e => e.Category)
+                    .HasDefaultValue("Other");
+                
+                // Setting for Description
+                entity.Property(e => e.Description)
+                    .HasDefaultValue("No description");
                 
                 // Value by default for CreatedAt
                 entity.Property(e => e.CreatedAt)

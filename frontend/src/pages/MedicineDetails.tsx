@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './MedicineDetails.css';
 
-interface Medicine {
+interface Mdc {
   id: number;
   name: string;
   price: number;
@@ -13,11 +13,11 @@ interface Medicine {
   imageUrl?: string;
 }
 
-export default function MedicineDetailsPage() {
+export default function MdcDetailsPage() {
   const { id } = useParams<{ id: string }>();
-  const [medicine, setMedicine] = useState<Medicine | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [mdc, setMdc] = useState<Mdc | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errMsg, setErrMsg] = useState('');
 
   useEffect(() => {
     if (!id) return;
@@ -30,19 +30,19 @@ export default function MedicineDetailsPage() {
         return response.json();
       })
       .then(data => {
-        setMedicine(data);
-        setError('');
+        setMdc(data);
+        setErrMsg('');
       })
       .catch(err => {
-        setError('Failed to load medicine details');
+        setErrMsg('Failed to load medicine details');
         console.error('Error fetching medicine:', err);
       })
       .finally(() => {
-        setLoading(false);
+        setIsLoading(false);
       });
   }, [id]);
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="loading-container">
         <div className="spinner"></div>
@@ -51,11 +51,11 @@ export default function MedicineDetailsPage() {
     );
   }
 
-  if (error || !medicine) {
+  if (errMsg || !mdc) {
     return (
       <div className="error-container">
         <h2>❌ Medicine not found</h2>
-        <p>{error || `Medicine with ID ${id} does not exist.`}</p>
+        <p>{errMsg || `Medicine with ID ${id} does not exist.`}</p>
         <Link to="/" className="back-link">
           ← Back to catalog
         </Link>
@@ -64,68 +64,68 @@ export default function MedicineDetailsPage() {
   }
 
   return (
-    <div className="medicine-details-page">
+    <div className="mdc-details-page">
       <nav className="details-nav">
-        <Link to="/" className="back-button">
+        <Link to="/" className="back-btn">
           ← Back to all medicines
         </Link>
       </nav>
 
-      <div className="medicine-details-container">
-        <div className="medicine-image-section">
-          {medicine.imageUrl ? (
+      <div className="mdc-container">
+        <div className="mdc-img-section">
+          {mdc.imageUrl ? (
             <img 
-              src={medicine.imageUrl} 
-              alt={medicine.name}
-              className="medicine-image"
+              src={mdc.imageUrl} 
+              alt={mdc.name}
+              className="mdc-img"
               onError={(e) => {
                 (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&auto=format&fit=crop';
               }}
             />
           ) : (
-            <div className="medicine-image-placeholder">
+            <div className="mdc-img-placeholder">
               💊
             </div>
           )}
         </div>
 
-        <div className="medicine-info-section">
-          <div className="medicine-header">
-            <h1 className="medicine-title">{medicine.name}</h1>
-            {medicine.requiresPrescription && (
-              <div className="prescription-warning">
+        <div className="mdc-info-section">
+          <div className="mdc-header">
+            <h1 className="mdc-title">{mdc.name}</h1>
+            {mdc.requiresPrescription && (
+              <div className="rx-warning">
                 ⚠️ Prescription Required
               </div>
             )}
           </div>
 
-          <div className="medicine-price-section">
+          <div className="mdc-price-section">
             <span className="price-label">Price:</span>
-            <span className="price-value">{medicine.price.toFixed(2)} €</span>
+            <span className="price-value">{mdc.price.toFixed(2)} €</span>
           </div>
 
           <div className="stock-section">
             <span className="stock-label">Availability:</span>
-            <span className={`stock-value ${medicine.stock > 0 ? 'in-stock' : 'out-of-stock'}`}>
-              {medicine.stock > 0 ? `${medicine.stock} in stock` : 'Out of stock'}
+            <span className={`stock-value ${mdc.stock > 0 ? 'in-stock' : 'out-of-stock'}`}>
+              {mdc.stock > 0 ? `${mdc.stock} in stock` : 'Out of stock'}
             </span>
           </div>
 
-          {medicine.category && (
-            <div className="category-section">
-              <span className="category-label">Category:</span>
-              <span className="category-value">{medicine.category}</span>
+          {mdc.category && (
+            <div className="cat-section">
+              <span className="cat-label">Category:</span>
+              <span className="cat-value">{mdc.category}</span>
             </div>
           )}
 
-          {medicine.description && (
-            <div className="description-section">
-              <h3 className="description-title">Description</h3>
-              <p className="description-text">{medicine.description}</p>
+          {mdc.description && (
+            <div className="desc-section">
+              <h3 className="desc-title">Description</h3>
+              <p className="desc-text">{mdc.description}</p>
             </div>
           )}
 
-          <div className="action-buttons">            
+          <div className="action-btns">            
             <Link to="/" className="continue-shopping">
               Continue Shopping
             </Link>

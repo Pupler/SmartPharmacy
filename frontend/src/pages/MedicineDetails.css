@@ -1,188 +1,248 @@
-.medicine-details-page {
+.mdc-details-page {
   min-height: 100vh;
-  background: #f9fafb;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  padding-bottom: 3rem;
 }
 
 .details-nav {
-  padding: 1.5rem 2rem;
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.back-button {
-  color: #3b82f6;
+.back-btn {
+  color: #4f46e5;
   text-decoration: none;
   font-weight: 500;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.375rem;
+  transition: color 0.2s ease;
+  font-size: 0.875rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
 }
 
-.back-button:hover {
-  text-decoration: underline;
+.back-btn:hover {
+  color: #3730a3;
+  background: rgba(99, 102, 241, 0.1);
 }
 
-.medicine-details-container {
-  max-width: 1200px;
+.mdc-container {
+  max-width: 72rem;
   margin: 2rem auto;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  gap: 2.5rem;
+  align-items: start;
 }
 
-.medicine-image-section {
+.mdc-img-section {
   background: white;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04),
+              0 8px 10px -6px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(226, 232, 240, 0.6);
 }
 
-.medicine-image {
+.mdc-img {
   width: 100%;
-  height: 400px;
+  height: 28rem;
   object-fit: contain;
-  border-radius: 8px;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
 }
 
-.medicine-image-placeholder {
+.mdc-img-placeholder {
   width: 100%;
-  height: 400px;
+  height: 28rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #e0e7ff;
-  border-radius: 8px;
-  font-size: 8rem;
+  background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+  border-radius: 0.75rem;
+  font-size: 6rem;
+  color: #7c3aed;
 }
 
-.medicine-info-section {
+.mdc-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.mdc-info-section {
   background: white;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04),
+              0 8px 10px -6px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(226, 232, 240, 0.6);
 }
 
-.medicine-header {
-  margin-bottom: 2rem;
-}
-
-.medicine-title {
-  font-size: 2.5rem;
-  color: #1f2937;
+.mdc-title {
+  font-size: 2rem;
+  color: #1e293b;
   margin-bottom: 0.5rem;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
-.prescription-warning {
+.rx-warning {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  background: #fef3c7;
+  gap: 0.375rem;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
   color: #92400e;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.5rem;
   font-weight: 500;
+  font-size: 0.875rem;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  margin-bottom: 1.5rem;
 }
 
-.medicine-price-section,
+.mdc-price-section,
 .stock-section,
-.category-section {
+.cat-section {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e5e7eb;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.5);
 }
 
 .price-label,
 .stock-label,
-.category-label {
-  font-weight: 600;
-  color: #6b7280;
-  min-width: 120px;
+.cat-label {
+  font-weight: 500;
+  color: #64748b;
+  min-width: 6rem;
+  font-size: 0.875rem;
 }
 
 .price-value {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 700;
   color: #10b981;
+  letter-spacing: -0.025em;
 }
 
 .stock-value {
-  font-weight: 600;
+  font-weight: 500;
   padding: 0.25rem 0.75rem;
-  border-radius: 20px;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  border: 1px solid transparent;
 }
 
 .stock-value.in-stock {
-  background: #d1fae5;
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
   color: #065f46;
+  border-color: rgba(16, 185, 129, 0.2);
 }
 
 .stock-value.out-of-stock {
-  background: #fee2e2;
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
   color: #991b1b;
+  border-color: rgba(239, 68, 68, 0.2);
 }
 
-.category-value {
+.cat-value {
   font-weight: 500;
-  color: #3b82f6;
+  color: #4f46e5;
+  background: rgba(99, 102, 241, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  border: 1px solid rgba(99, 102, 241, 0.2);
 }
 
-.description-section {
+.desc-section {
+  margin-top: 1.5rem;
+}
+
+.desc-title {
+  font-size: 1rem;
+  color: #334155;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.desc-text {
+  line-height: 1.7;
+  color: #475569;
+  font-size: 0.9375rem;
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border-left: 4px solid #c7d2fe;
+}
+
+.action-btns {
   margin-top: 2rem;
-}
-
-.description-title {
-  font-size: 1.25rem;
-  color: #1f2937;
-  margin-bottom: 1rem;
-}
-
-.description-text {
-  line-height: 1.6;
-  color: #4b5563;
-}
-
-.action-buttons {
-  margin-top: 2.5rem;
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   align-items: center;
 }
 
 .add-to-cart-btn {
-  background: #3b82f6;
+  background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
   color: white;
   border: none;
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  font-weight: 600;
+  padding: 0.875rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
   flex: 1;
+  font-size: 0.9375rem;
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.1),
+              0 2px 4px -1px rgba(79, 70, 229, 0.06);
 }
 
 .add-to-cart-btn:hover:not(:disabled) {
-  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.1),
+              0 4px 6px -2px rgba(79, 70, 229, 0.05);
+}
+
+.add-to-cart-btn:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .add-to-cart-btn:disabled {
-  background: #9ca3af;
+  background: #cbd5e1;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .continue-shopping {
-  color: #3b82f6;
+  color: #4f46e5;
   text-decoration: none;
   font-weight: 500;
-  padding: 1rem;
+  padding: 0.875rem 1.5rem;
   text-align: center;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 0.5rem;
+  font-size: 0.9375rem;
+  transition: all 0.2s ease;
+  background: white;
 }
 
 .continue-shopping:hover {
-  text-decoration: underline;
+  background: rgba(99, 102, 241, 0.05);
+  border-color: #4f46e5;
 }
 
 .loading-container,
@@ -193,15 +253,16 @@
   justify-content: center;
   min-height: 70vh;
   text-align: center;
+  padding: 2rem;
 }
 
 .spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid #e0e7ff;
-  border-top: 4px solid #3b82f6;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 3px solid #e2e8f0;
+  border-top: 3px solid #4f46e5;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin 0.8s linear infinite;
   margin-bottom: 1.5rem;
 }
 
@@ -212,32 +273,114 @@
 
 .back-link {
   margin-top: 1rem;
-  color: #3b82f6;
+  color: #4f46e5;
   text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 0.375rem;
+  display: inline-block;
+  transition: all 0.2s ease;
 }
 
 .back-link:hover {
-  text-decoration: underline;
+  background: rgba(99, 102, 241, 0.05);
 }
 
 /* Mobile responsive */
+@media (max-width: 1024px) {
+  .mdc-container {
+    gap: 2rem;
+  }
+  
+  .mdc-img,
+  .mdc-img-placeholder {
+    height: 24rem;
+  }
+  
+  .mdc-title {
+    font-size: 1.75rem;
+  }
+}
+
 @media (max-width: 768px) {
-  .medicine-details-container {
+  .mdc-container {
     grid-template-columns: 1fr;
-    padding: 1rem;
+    padding: 0 1rem;
     gap: 1.5rem;
+    margin: 1.5rem auto;
   }
   
-  .medicine-image,
-  .medicine-image-placeholder {
-    height: 300px;
+  .details-nav {
+    padding: 0.875rem 1rem;
   }
   
-  .medicine-title {
-    font-size: 2rem;
+  .mdc-img,
+  .mdc-img-placeholder {
+    height: 20rem;
   }
   
-  .action-buttons {
+  .mdc-img-section,
+  .mdc-info-section {
+    padding: 1.25rem;
+  }
+  
+  .mdc-title {
+    font-size: 1.5rem;
+  }
+  
+  .price-value {
+    font-size: 1.5rem;
+  }
+  
+  .mdc-price-section,
+  .stock-section,
+  .cat-section {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 0.375rem;
+  }
+  
+  .price-label,
+  .stock-label,
+  .cat-label {
+    min-width: auto;
+    font-size: 0.8125rem;
+  }
+  
+  .action-btns {
+    flex-direction: column;
+  }
+  
+  .add-to-cart-btn,
+  .continue-shopping {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .mdc-img,
+  .mdc-img-placeholder {
+    height: 16rem;
+  }
+  
+  .mdc-img-placeholder {
+    font-size: 4rem;
+  }
+  
+  .mdc-title {
+    font-size: 1.25rem;
+  }
+  
+  .desc-text {
+    font-size: 0.875rem;
+    padding: 0.75rem;
+  }
+  
+  .spinner {
+    width: 3rem;
+    height: 3rem;
   }
 }

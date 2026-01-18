@@ -9,7 +9,7 @@ A modern full-stack web application for **medication management**, **pharmacy di
 
 ## 📸 Preview
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e3ca2ea3-1e9e-41f9-9070-5f73b16cd60c" />
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/0806b3ae-fed5-4080-9ba3-b854fab8cc69" />
 
 ## ✨ Features (Planned)
 

@@ -1,0 +1,154 @@
+/* Tablet (1024px) */
+@media (max-width: 1024px) {
+  .header-controls {
+    max-width: 100%;
+  }
+  
+  .cart-modal {
+    width: 320px;
+  }
+  
+  .medicine-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+/* Mobile (768px) */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 15px;
+  }
+
+  .header h1 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 2rem;
+  }
+
+  .header-controls {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .header-controls input {
+    flex: 2;
+    min-width: 0;
+    padding: 0.7rem 1rem;
+  }
+
+  .cart-icon-btn,
+  .header-controls > button:last-child {
+    flex: 0.5;
+    min-width: 50px;
+    padding: 0.6rem;
+  }
+
+  .cart-icon-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .main {
+    padding: 1rem;
+  }
+  
+  .medicine-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .footer {
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* Small mobile (480px) */
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.6rem;
+  }
+
+  .main {
+    padding: 0.5rem;
+  }
+
+  .header-controls input {
+    flex: 2;
+    min-width: 0;
+    padding: 0.7rem 1rem;
+  }
+
+  .cart-icon-btn,
+  .header-controls > button:last-child {
+    flex: 0.5;
+    min-width: 50px;
+    padding: 0.6rem;
+  }
+  
+  .medicine-card {
+    min-height: 240px;
+    padding: 1.2rem;
+  }
+  
+  .cart-modal {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .cart-header {
+    padding: 1.2rem;
+  }
+  
+  .cart-item {
+    padding: 0.8rem;
+  }
+  
+  .cart-footer {
+    padding: 1.2rem;
+  }
+}
+
+/* Very small screens (360px) */
+@media (max-width: 360px) {
+  .header {
+    padding: 0.8rem;
+  }
+  
+  .header h1 {
+    font-size: 1.3rem;
+  }
+  
+  .header input {
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .cart-icon-btn {
+    font-size: 1.1rem;
+    padding: 0.5rem;
+  }
+  
+  .cart-badge {
+    width: 18px;
+    height: 18px;
+    font-size: 0.65rem;
+  }
+}
+
+/* Landscape mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .cart-modal {
+    height: 100vh;
+    max-height: 100vh;
+  }
+  
+  .cart-items {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+}

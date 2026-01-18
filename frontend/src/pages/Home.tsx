@@ -118,7 +118,11 @@ function HomePage() {
             )}
           </button>
 
-          <button onClick={toggleTheme}>
+          <button className="medicine-cabinet-btn">
+            👤
+          </button>
+
+          <button className='theme-toggle-btn' onClick={toggleTheme}>
             {isDarkMode ? '☀️' : '🌙'}
           </button>
         </div>

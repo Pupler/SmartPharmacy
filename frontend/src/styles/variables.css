@@ -1,0 +1,70 @@
+:root {
+  /* Light theme (default) */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-header: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+  --bg-footer: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --bg-card: #ffffff;
+  --bg-modal: #ffffff;
+  --bg-input: rgba(255, 255, 255, 0.15);
+  
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-header: #ffffff;
+  --text-footer: #cbd5e1;
+  --text-price: #059669;
+  --text-in-stock: #065f46;
+  --text-out-of-stock: #991b1b;
+  
+  --border-primary: #e2e8f0;
+  --border-secondary: #f1f5f9;
+  
+  --accent-primary: #3b82f6;
+  --accent-secondary: #ef4444;
+  --accent-success: #10b981;
+  --accent-warning: #f59e0b;
+  
+  --shadow-card: 0 4px 15px rgba(0, 0, 0, 0.1);
+  --shadow-modal: -5px 0 25px rgba(0, 0, 0, 0.15);
+  --shadow-header: 0 4px 20px rgba(0, 0, 0, 0.1);
+  
+  --badge-bg: #fef3c7;
+  --badge-text: #92400e;
+  --cart-badge-bg: #ef4444;
+  --cart-badge-text: #ffffff;
+}
+
+.dark-theme {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-header: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+  --bg-footer: linear-gradient(135deg, #020617 0%, #0f172a 100%);
+  --bg-card: #1e293b;
+  --bg-modal: #1e293b;
+  --bg-input: rgba(255, 255, 255, 0.1);
+  
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-header: #ffffff;
+  --text-footer: #94a3b8;
+  --text-price: #34d399;
+  --text-in-stock: #86efac;
+  --text-out-of-stock: #fca5a5;
+  
+  --border-primary: #334155;
+  --border-secondary: #475569;
+  
+  --accent-primary: #60a5fa;
+  --accent-secondary: #f87171;
+  --accent-success: #34d399;
+  --accent-warning: #fbbf24;
+  
+  --shadow-card: 0 4px 15px rgba(0, 0, 0, 0.3);
+  --shadow-modal: -5px 0 25px rgba(0, 0, 0, 0.4);
+  --shadow-header: 0 4px 20px rgba(0, 0, 0, 0.3);
+  
+  --badge-bg: #78350f;
+  --badge-text: #fef3c7;
+  --cart-badge-bg: #dc2626;
+  --cart-badge-text: #ffffff;
+}

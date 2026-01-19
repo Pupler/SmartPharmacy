@@ -95,6 +95,10 @@ function HomePage() {
     setCart([]);
   };
 
+  const showMedicineCabinet = () => {
+    
+  };
+
   return (
     <div className="app">
       <header className="header">
@@ -118,7 +122,7 @@ function HomePage() {
             )}
           </button>
 
-          <button className="medicine-cabinet-btn">
+          <button className="medicine-cabinet-btn" onClick={showMedicineCabinet}>
             👤
           </button>
 

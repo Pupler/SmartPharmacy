@@ -7,6 +7,7 @@ namespace Backend.Data
     {
         // DbSet - represents a table in a database
         public DbSet<Medicine> Medicines { get; set; } = null!;
+        public DbSet<User> Users { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

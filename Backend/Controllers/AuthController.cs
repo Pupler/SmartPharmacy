@@ -38,7 +38,7 @@ public class AuthController : ControllerBase
         });
     }
 
-    [HttpPost("login")]
+    [HttpGet("login")]
     public async Task<IActionResult> Login(string username, string password)
     {
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);

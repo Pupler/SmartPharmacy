@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import '../styles/Home.css';
 import MedicineCard from '../components/MedicineCard/MedicineCard';
-import { useNavigate } from 'react-router-dom';
 
 interface Medicine {
   id: number;

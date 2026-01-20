@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import '../styles/Home.css';
 import MedicineCard from '../components/MedicineCard/MedicineCard';
+import { useNavigate } from 'react-router-dom';
 
 interface Medicine {
   id: number;
@@ -96,7 +97,14 @@ function HomePage() {
   };
 
   const showMedicineCabinet = () => {
-    
+    const username = localStorage.getItem('username');
+
+    if (!username) {
+      window.location.href = '/auth';
+      return;
+    }
+
+    window.alert(`WELCOME ${username}`);
   };
 
   return (
@@ -123,7 +131,7 @@ function HomePage() {
           </button>
 
           <button className="medicine-cabinet-btn" onClick={showMedicineCabinet}>
-            👤
+            {localStorage.getItem('username') ? `👤 Welcome, ${localStorage.getItem('username')}` : '👤 Login'}
           </button>
 
           <button className='theme-toggle-btn' onClick={toggleTheme}>

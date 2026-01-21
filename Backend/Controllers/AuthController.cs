@@ -19,7 +19,10 @@ public class AuthController : ControllerBase
     {
         if (await _context.Users.AnyAsync(u => u.Username == username))
         {
-            return BadRequest("User already exists!");
+            return BadRequest(new
+            {
+                message = "User already exists!"
+            });
         }
         
         var user = new User
@@ -33,7 +36,7 @@ public class AuthController : ControllerBase
 
         return Ok(new
         {
-            message = "Registration successsfull!",
+            message = "Registration successsful!",
             userId = user.Id
         });
     }
@@ -45,12 +48,15 @@ public class AuthController : ControllerBase
 
         if (user == null || user.Password != password)
         {
-            return Unauthorized("Wrong password or username!");
+            return Unauthorized(new
+            {
+                message = "Wrong password or username!"
+            });
         }
 
         return Ok(new
         {
-            message = "Login successsfull!",
+            message = "Login successsful!",
             userId = user.Id,
             username = user.Username
         });

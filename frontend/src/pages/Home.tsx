@@ -129,9 +129,29 @@ function HomePage() {
             )}
           </button>
 
-          <button className="medicine-cabinet-btn" onClick={showMedicineCabinet}>
-            {localStorage.getItem('username') ? `👤 Welcome, ${localStorage.getItem('username')}` : '👤 Login'}
-          </button>
+          {localStorage.getItem('username') ? (
+            <div className="user-controls">
+              <button className="medicine-cabinet-btn">
+                👤 {localStorage.getItem('username')}
+              </button>
+              <button 
+                className="logout-btn"
+                onClick={() => {
+                  localStorage.removeItem('username');
+                  window.location.reload();
+                }}
+              >
+                🚪 Logout
+              </button>
+            </div>
+          ) : (
+            <button 
+              className="medicine-cabinet-btn" 
+              onClick={showMedicineCabinet}
+            >
+              👤 Login
+            </button>
+          )}
 
           <button className='theme-toggle-btn' onClick={toggleTheme}>
             {isDarkMode ? '☀️' : '🌙'}

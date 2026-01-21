@@ -34,14 +34,14 @@ const AuthPage = () => {
             const endpoint = (isLogin ? 'login' : 'register');
             const url = `http://localhost:5171/api/auth/${endpoint}?username=${username}&password=${password}`;
             const response = await fetch(url);
+            const data = await response.json();
 
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Something went wrong!');
+                throw new Error(data.message || 'Something went wrong!');
             }
 
             localStorage.setItem('username', username);
-            showNotification(`${(isLogin ? 'Login' : 'Registration')} successfull!`, 'success');
+            showNotification(data.message, 'success');
             setTimeout(() => navigate('/'), 1500);
 
         } catch (err: any) {

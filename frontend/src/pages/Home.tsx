@@ -35,7 +35,21 @@ function HomePage() {
 
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem('theme');
+
+    if (savedTheme == 'dark') {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  const toggleTheme = () => {
+    document.body.classList.toggle('dark-theme');
+    setIsDarkMode(isDarkMode ? false : true);
+    localStorage.setItem('theme', (isDarkMode ? 'light' : 'dark'));
+  }
 
   const [medicines, setMedicines] = useState<Medicine[]>([]);
 
@@ -62,11 +76,15 @@ function HomePage() {
       });
   }, []);
 
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-    document.body.classList.toggle('dark-theme');
-    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-  }
+  useEffect(() => {
+    if (localStorage.getItem('theme') == 'dark') {
+      document.body.classList.add('dark-theme');
+      document.body.classList.remove('light-theme');
+    } else {
+      document.body.classList.add('light-theme');
+      document.body.classList.remove('dark-theme');
+    } 
+  }, []);
 
   const addToCart = (id: number, name: string, price: number) => {
     setCart(prevCart => {
@@ -131,7 +149,12 @@ function HomePage() {
 
           {localStorage.getItem('username') ? (
             <div className="user-controls">
-              <button className="medicine-cabinet-btn">
+              <button
+                className="medicine-cabinet-btn"
+                onClick={() => {
+                  window.location.href = '/my-cabinet'
+                }}
+              >
                 👤 {localStorage.getItem('username')}
               </button>
               <button 

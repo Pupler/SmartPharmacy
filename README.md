@@ -9,24 +9,25 @@ A modern full-stack web application for **medication management**, **pharmacy di
 
 ## 📸 Preview
 
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/67f7f294-1bcd-4b1b-ad1a-3b5d332a2d60" />
+#### ```Home page — Explore & Discover```
+<img width="1919" height="1079" alt="grafik" src="https://github.com/user-attachments/assets/eb01e422-a2d4-4480-8746-a93884168991" />
 
-## ✨ Features (Planned)
+#### ```Medical cabinet — Manage Your Medications```
+<img width="1919" height="1079" alt="grafik" src="https://github.com/user-attachments/assets/75cadbbc-1be3-4276-b6a8-91c3f428ab00" />
 
-- 🔍 **Simple Medication Search**  
-  Search by drug name only.
-- 📍 **Pharmacy List**  
-  Static list or map with a few pharmacies.
-- 💊 **My Medicine Cabinet**  
-  Add/remove medicines and view your list.
-- ⏰ **Basic Reminders**  
-  Simple notifications for taking medicine (e.g., browser alerts).
-- ⚠️ **Simple Interaction Checker**  
-  Warns about a few known dangerous combinations.
-- 📊 **Health Tracker (Basic)**  
-  Log symptoms or notes without analytics.
-- 🔐 **User Accounts**  
-  Simple login/logout (no roles required).
+#### ```Authentication Page — Demo (Work in Progress)```
+<img width="1919" height="1079" alt="grafik" src="https://github.com/user-attachments/assets/48726423-4c8d-43f1-adaa-0fc1db9b581f" />
+
+## ✨ Features
+
+- 🎨 **Smart Theme System**  
+  Switch between light/dark modes with auto-save.
+- 💊 **Basic Medicine Cabinet**  
+  Simple list to track your medications.
+- 🎯 **Clean User Interface**  
+  Minimalist and easy to navigate.
+- 💾 **Local Data Storage**  
+  Your info stays between visits (no server needed).
 
 
 ## 🛠️ Technology Stack

@@ -1,6 +1,5 @@
 .cabinet-container {
     min-height: 100vh;
-    padding: 20px;
     transition: background 0.3s, color 0.3s;
 }
 
@@ -19,6 +18,7 @@ body:not(.dark-theme) .cabinet-container {
     justify-content: space-between;
     align-items: center;
     padding: 20px 0;
+    margin: 0 20px 0 20px;
     border-bottom: 2px solid #4a6fa5;
     margin-bottom: 30px;
 }
@@ -138,20 +138,7 @@ body:not(.dark-theme) .recent-section {
     padding: 20px;
 }
 
-.cabinet-footer {
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
-    border-top: 1px solid #ddd;
-    color: #666;
-    font-size: 0.9rem;
-}
-
-body.dark-theme .cabinet-footer {
-    border-color: #333;
-    color: #888;
-}
-
+/* Mobile responsive */
 @media (max-width: 600px) {
     .quick-stats {
         flex-direction: column;

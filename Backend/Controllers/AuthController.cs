@@ -40,11 +40,13 @@ public class AuthController : ControllerBase
             {
                 message = "User already exists!"
             });
+
+        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
         
         var user = new User
         {
             Username = username,
-            PasswordHash = _passwordHasher.HashPassword(new User { Username = username }, password)
+            PasswordHash = hashedPassword
         };
 
         _context.Users.Add(user);
@@ -75,13 +77,9 @@ public class AuthController : ControllerBase
         if (user == null || string.IsNullOrEmpty(user.PasswordHash))
             return Unauthorized(new { message = "Wrong credentials!" });
 
-        var result = _passwordHasher.VerifyHashedPassword(
-            user,
-            user.PasswordHash,
-            password
-        );
+        bool isPasswordValid = BCrypt.Net.BCrypt.Verify(password, user.PasswordHash);
 
-        if (result != PasswordVerificationResult.Success)
+        if (!isPasswordValid)
             return Unauthorized(new { message = "Wrong credentials!" });
 
         return Ok(new

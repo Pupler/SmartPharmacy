@@ -32,8 +32,13 @@ const AuthPage = () => {
 
         try {
             const endpoint = (isLogin ? 'login' : 'register');
-            const url = `http://localhost:5171/api/auth/${endpoint}?username=${username}&password=${password}`;
-            const response = await fetch(url);
+
+            const response = await fetch(`/api/auth/${endpoint}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+
             const data = await response.json();
 
             if (!response.ok) {

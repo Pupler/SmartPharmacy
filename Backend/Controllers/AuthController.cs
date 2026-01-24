@@ -17,16 +17,29 @@ public class AuthController : ControllerBase
         _passwordHasher = passwordHasher;
     }
 
-    [HttpGet("register")]
-    public async Task<IActionResult> Register(string username, string password)
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] Dictionary<string, string> data)
     {
-        if (await _context.Users.AnyAsync(u => u.Username == username))
+        // Check if null
+        if (data == null || !data.TryGetValue("username", out string? username) || !data.TryGetValue("password", out string? password))
         {
+            return BadRequest(new
+            {
+                message = "Username and password are required"
+            });
+        }
+        
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            return BadRequest(new
+            {
+                message = "Username and password cannot be empty"
+            });
+        
+        if (await _context.Users.AnyAsync(u => u.Username == username))
             return BadRequest(new
             {
                 message = "User already exists!"
             });
-        }
         
         var user = new User
         {
@@ -39,23 +52,28 @@ public class AuthController : ControllerBase
 
         return Ok(new
         {
-            message = "Registration successsful!",
+            message = "Registration successful!",
             userId = user.Id
         });
     }
 
-    [HttpGet("login")]
-    public async Task<IActionResult> Login(string username, string password)
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] Dictionary<string, string> data)
     {
+        // Check if null
+        if (data == null || !data.TryGetValue("username", out string? username) || !data.TryGetValue("password", out string? password))
+            return Unauthorized(new
+            {
+                message = "Username and password are required"
+            });
+        
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            return Unauthorized(new { message = "Username and password cannot be empty" });
+        
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
 
         if (user == null || string.IsNullOrEmpty(user.PasswordHash))
-        {
-            return Unauthorized(new
-            {
-               message = "Wrong credentials!" 
-            });
-        }
+            return Unauthorized(new { message = "Wrong credentials!" });
 
         var result = _passwordHasher.VerifyHashedPassword(
             user,
@@ -63,17 +81,12 @@ public class AuthController : ControllerBase
             password
         );
 
-        if (user == null || result != PasswordVerificationResult.Success)
-        {
-            return Unauthorized(new
-            {
-                message = "Wrong password or username!"
-            });
-        }
+        if (result != PasswordVerificationResult.Success)
+            return Unauthorized(new { message = "Wrong credentials!" });
 
         return Ok(new
         {
-            message = "Login successsful!",
+            message = "Login successful!",
             userId = user.Id,
             username = user.Username
         });
@@ -83,9 +96,6 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> CheckUser(string username)
     {
         var exists = await _context.Users.AnyAsync(u => u.Username == username);
-
-        return Ok (new {
-            exists
-        });
+        return Ok(new { exists });
     }
 }

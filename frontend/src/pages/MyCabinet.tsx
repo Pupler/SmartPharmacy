@@ -29,7 +29,7 @@ const MyCabinetPage = () => {
     const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
     return (
-        <div className="app">
+        <div className="cabinet-page">
             <div className="cabinet-container">
                 <nav className="details-nav">
                     <Link to="/" className="back-btn">

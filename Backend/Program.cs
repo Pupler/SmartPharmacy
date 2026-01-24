@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Backend.Data;
+using Backend.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers(); // Enables API controllers
 builder.Services.AddEndpointsApiExplorer(); // For Swagger
 builder.Services.AddSwaggerGen(); // For API documentation
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 var app = builder.Build();
 

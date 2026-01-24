@@ -13,6 +13,6 @@ namespace Backend.Models
 
         [Required]
         [StringLength(500)]
-        public string? Password { get; set; }
+        public string? PasswordHash { get; set; }
     }
 }

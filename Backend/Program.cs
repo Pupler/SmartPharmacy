@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 using Backend.Data;
 using Backend.Models;
 
@@ -28,6 +30,38 @@ builder.Services.AddCors(options =>
 
 // Required services
 builder.Services.AddControllers(); // Enables API controllers
+
+// Rate Limiting
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    options.OnRejected = async (context, token) =>
+    {
+        context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+        context.HttpContext.Response.ContentType = "application/json";
+
+        await context.HttpContext.Response.WriteAsJsonAsync(new
+        {
+            message = "Too many requests. Please try again later."
+        }, token);
+    };
+
+    options.AddFixedWindowLimiter("login", opt =>
+    {
+        opt.Window = TimeSpan.FromMinutes(1);
+        opt.PermitLimit = 5;
+        opt.QueueLimit = 0;
+    });
+
+    options.AddFixedWindowLimiter("register", opt =>
+    {
+        opt.Window = TimeSpan.FromMinutes(60);
+        opt.PermitLimit = 3;
+        opt.QueueLimit = 0;
+    });
+});
+
 builder.Services.AddEndpointsApiExplorer(); // For Swagger
 builder.Services.AddSwaggerGen(); // For API documentation
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
@@ -67,6 +101,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
+
+app.UseRateLimiter();
 
 // Test endpoints
 app.MapGet("/", () => "SmartPharmacy API Server is running! 🚀");

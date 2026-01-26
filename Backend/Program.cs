@@ -1,11 +1,28 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.RateLimiting;
-using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Backend.Data;
 using Backend.Models;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var jwtKey = "SUPER_SECRET_KEY_123456789";
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+        };
+    });
 
 // Builder Service for database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -117,7 +134,9 @@ app.MapGet("/api/debug", () => new {
     endpoints = new[] { "/api/medicines", "/api/test" }
 });
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers(); // Maps controller routes
 
 app.Run();

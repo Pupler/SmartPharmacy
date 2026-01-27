@@ -9,7 +9,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var jwtKey = "SUPER_SECRET_KEY_123456789";
+var jwtKey = "SUPER_SECRET_KEY_123456789_SUPER_SECRET_KEY";
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

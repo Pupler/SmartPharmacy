@@ -39,7 +39,14 @@ const AuthPage = () => {
                 body: JSON.stringify({ username, password })
             });
 
-            const data = await response.json();
+            const text = await response.text();
+            let data: any = null;
+
+            try {
+                data = text ? JSON.parse(text) : null;
+            } catch {
+                // Ignoring the JSON parse error
+            }
 
             if (!response.ok) {
                 throw new Error(data?.message || 'Something went wrong!');
@@ -50,7 +57,7 @@ const AuthPage = () => {
             setTimeout(() => navigate('/'), 1500);
 
         } catch (err: any) {
-            showNotification(err.message || 'Failed to authenticate!', 'error');
+            showNotification(err?.message || 'Failed to authenticate!', 'error');
         } finally {
             setLoading(false);
         }

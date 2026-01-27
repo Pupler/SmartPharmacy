@@ -4,13 +4,21 @@ using Backend.Models;
 using Backend.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.RateLimiting;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+
 
 [ApiController]
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
+
     private readonly IPasswordHasher<User> _passwordHasher;
+
+    private const string JwtKey = "SUPER_SECRET_KEY_123456789_SUPER_SECRET_KEY";
 
     public AuthController(ApplicationDbContext context, IPasswordHasher<User> passwordHasher)
     {
@@ -159,11 +167,33 @@ public class AuthController : ControllerBase
             });   
         }
 
+        var claims = new[]
+        {
+          new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+          new Claim(ClaimTypes.Name, user.Username ?? string.Empty)  
+        };
+
+        var key = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(JwtKey)
+        );
+
+        var creds = new SigningCredentials(
+            key,
+            SecurityAlgorithms.HmacSha256
+        );
+
+        var token = new JwtSecurityToken(
+            claims: claims,
+            expires: DateTime.UtcNow.AddHours(1),
+            signingCredentials: creds
+        );
+
+        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
         return Ok(new
         {
             message = "Login successful!",
-            userId = user.Id,
-            username = user.Username
+            token = jwt
         });
     }
 

@@ -22,13 +22,16 @@ A modern full-stack web application for **medication management**, **pharmacy di
 
 - 🎨 **Smart Theme System**  
   Switch between light/dark modes with auto-save.
+- 🔍 **Search & Filter (In developing...)**  
+  Filter medicines by name or category.
 - 💊 **Basic Medicine Cabinet**  
   Simple list to track your medications.
 - 🎯 **Clean User Interface**  
   Minimalist and easy to navigate.
 - 💾 **Local Data Storage**  
-  Your info stays between visits (no server needed).
-
+  Your info stays between visits.
+- 🌐 **API Error Handling**  
+  User-friendly messages for server / network errors.
 
 ## 🛠️ Technology Stack
 

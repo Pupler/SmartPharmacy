@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import '../styles/Home.css';
 import MedicineCard from '../components/MedicineCard/MedicineCard';
+import Notification from '../components/Notification/Notification';
 
 interface Medicine {
   id: number;
@@ -55,25 +56,54 @@ function HomePage() {
 
   const [loading, setLoading] = useState(false);
 
-  const [error, setError] = useState('');
+  const [notification, setNotification] = useState<{
+    show: boolean,
+    message: string,
+    type: 'success' | 'error' | 'info'
+  }>({ show: false, message: '', type: 'success' });
 
   const filteredMedicines = medicines.filter(medicine =>
     medicine.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  const showNotification = (message: string, type: 'success' | 'error' | 'info') => {
+    setNotification({
+      show: true,
+      message: message,
+      type: type
+    });
+  };
+
   useEffect(() => {
-    setLoading(true);
-    fetch('http://localhost:5171/api/medicines')
-      .then(response => response.json())
-      .then(data => {
+    const fetchMedicines = async () => {
+      setLoading(true);
+
+      try {
+        const response = await fetch('http://localhost:5171/api/medicines');
+
+        const text = await response.text();
+        let data: any = null;
+
+        try {
+          data = text ? JSON.parse(text) : null;
+        } catch {
+          throw new Error('Invalid server response!');
+        }
+
+        if (!response.ok) {
+          throw new Error(data?.message || 'Error fetching medicines!');
+        }
+
         setMedicines(data);
+        
+      } catch (err: any) {
+        showNotification(err?.message || 'Server error!', 'error');
+      } finally {
         setLoading(false);
-      })
-      .catch(err => {
-        setError('Error while loading data!');
-        setLoading(false);
-        console.error(err);
-      });
+      }
+    };
+
+    fetchMedicines();
   }, []);
 
   useEffect(() => {
@@ -124,6 +154,14 @@ function HomePage() {
 
   return (
     <div className="app">
+      {notification.show && (
+        <Notification
+          message={notification.message}
+          type={notification.type}
+          onClose={() => setNotification({...notification, show: false})}
+        />
+      )
+      }
       <header className="header">
         <h1>Smart Pharmacy</h1>
 
@@ -185,15 +223,15 @@ function HomePage() {
         <div className="medicine-grid">
           {filteredMedicines.map(medicine => (
             <MedicineCard key={medicine.id}
-            id={medicine.id}
-            name={medicine.name}
-            price={medicine.price}
-            stock={medicine.stock}
-            requiresPrescription={medicine.requiresPrescription}
-            category={medicine.category}
-            description={medicine.description}
-            onAddToCart={addToCart}
-            onRemoveFromCart={removeFromCart}
+              id={medicine.id}
+              name={medicine.name}
+              price={medicine.price}
+              stock={medicine.stock}
+              requiresPrescription={medicine.requiresPrescription}
+              category={medicine.category}
+              description={medicine.description}
+              onAddToCart={addToCart}
+              onRemoveFromCart={removeFromCart}
             />
           ))}
         </div>

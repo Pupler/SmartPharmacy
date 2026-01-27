@@ -45,7 +45,7 @@ const AuthPage = () => {
             try {
                 data = text ? JSON.parse(text) : null;
             } catch {
-                // Ignoring the JSON parse error
+                throw new Error('Invalid server response!');
             }
 
             if (!response.ok) {

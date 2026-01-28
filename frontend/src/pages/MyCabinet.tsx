@@ -1,17 +1,32 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { checkAuth } from '../api/auth';
 import './MyCabinet.css';
 
 const MyCabinetPage = () => {
     const nagivate = useNavigate();
 
     useEffect(() => {
-        if (!localStorage.getItem('token')) { // Must be improved (!!)
-            nagivate('/auth');
-        }
-    });
+        const initAuth = async () => {
+            try {
+                const user = await checkAuth();
 
-    const username = localStorage.getItem('username') || 'User';
+                if (!user) {
+                    nagivate('/auth');
+                    return;
+                }
+
+                setUsername(user.username);
+            } catch {
+                nagivate('/');
+            }
+        };
+
+        initAuth();
+    }, []);
+
+    const [username, setUsername] = useState('User');
+
     const [isDarkMode, setIsDarkMode] = useState(() => {
         return localStorage.getItem('theme') === 'dark';
     });

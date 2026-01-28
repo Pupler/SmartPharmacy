@@ -6,7 +6,7 @@ const MyCabinetPage = () => {
     const nagivate = useNavigate();
 
     useEffect(() => {
-        if (!localStorage.getItem('username')) {
+        if (!localStorage.getItem('token')) { // Must be improved (!!)
             nagivate('/auth');
         }
     });

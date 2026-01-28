@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import '../styles/Home.css';
 import MedicineCard from '../components/MedicineCard/MedicineCard';
 import Notification from '../components/Notification/Notification';
+import { checkAuth } from '../api/auth';
 
 interface Medicine {
   id: number;
@@ -56,6 +57,10 @@ function HomePage() {
 
   const [loading, setLoading] = useState(false);
 
+  const [username, setUsername] = useState('');
+
+  const [isLogined, setIsLogined] = useState(false);
+
   const [notification, setNotification] = useState<{
     show: boolean,
     message: string,
@@ -103,6 +108,21 @@ function HomePage() {
       }
     };
 
+    const initAuth = async () => {
+      try {
+        const user = await checkAuth();
+
+        if (user) {
+          setIsLogined(true);
+          setUsername(user.username);
+          return;
+        }
+      } catch {
+        showNotification('Session expired', 'error');
+      }
+    };
+
+    initAuth();
     fetchMedicines();
   }, []);
 
@@ -141,17 +161,6 @@ function HomePage() {
     setCart([]);
   };
 
-  const showMedicineCabinet = () => {
-    const username = localStorage.getItem('username');
-
-    if (!username) {
-      window.location.href = '/auth';
-      return;
-    }
-
-    window.alert(`WELCOME ${username}`);
-  };
-
   return (
     <div className="app">
       {notification.show && (
@@ -183,7 +192,7 @@ function HomePage() {
             )}
           </button>
 
-          {localStorage.getItem('username') ? (
+          {isLogined ? (
             <div className="user-controls">
               <button
                 className="medicine-cabinet-btn"
@@ -191,12 +200,12 @@ function HomePage() {
                   window.location.href = '/my-cabinet'
                 }}
               >
-                👤 {localStorage.getItem('username')}
+                👤 {username}
               </button>
               <button 
                 className="logout-btn"
                 onClick={() => {
-                  localStorage.removeItem('username');
+                  localStorage.removeItem('token');
                   window.location.reload();
                 }}
               >
@@ -206,7 +215,9 @@ function HomePage() {
           ) : (
             <button 
               className="medicine-cabinet-btn" 
-              onClick={showMedicineCabinet}
+              onClick={() => {
+                window.location.href = '/auth'
+              }}
             >
               👤 Login
             </button>

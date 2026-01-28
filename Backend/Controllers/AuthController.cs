@@ -8,6 +8,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 
 [ApiController]
@@ -202,5 +203,19 @@ public class AuthController : ControllerBase
     {
         var exists = await _context.Users.AnyAsync(u => u.Username == username);
         return Ok(new { exists });
+    }
+
+    [Authorize]
+    [HttpGet("me")]
+    public IActionResult Me()
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var username = User.FindFirst(ClaimTypes.Name)?.Value;
+
+        return Ok(new
+        {
+            userId,
+            username
+        });
     }
 }

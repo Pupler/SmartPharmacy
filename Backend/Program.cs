@@ -18,11 +18,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         {
             ValidateIssuer = false,
             ValidateAudience = false,
-            ValidateLifetime = true,
+            ValidateLifetime = false,
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
         };
     });
+
+builder.Services.AddAuthorization();
 
 // Builder Service for database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

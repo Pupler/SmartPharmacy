@@ -23,7 +23,7 @@ const AuthPage = () => {
             message,
             type
         });
-    }
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -52,7 +52,7 @@ const AuthPage = () => {
                 throw new Error(data?.message || 'Something went wrong!');
             }
 
-            localStorage.setItem('username', username);
+            localStorage.setItem('token', data.token);
             showNotification(data.message, 'success');
             setTimeout(() => navigate('/'), 1500);
 

@@ -68,7 +68,7 @@ function HomePage() {
   }>({ show: false, message: '', type: 'success' });
 
   const filteredMedicines = medicines.filter(medicine =>
-    medicine.name.toLowerCase().includes(search.toLowerCase())
+    medicine.name.toLowerCase().includes(search.toLowerCase()) || medicine.category.toLowerCase().includes(search.toLowerCase())
   );
 
   const showNotification = (message: string, type: 'success' | 'error' | 'info') => {
@@ -245,6 +245,14 @@ function HomePage() {
               onRemoveFromCart={removeFromCart}
             />
           ))}
+
+          {filteredMedicines.length == 0 && (
+            <div className="no-medicines">
+              <span className="no-medicines-icon">💊</span>
+              <h3>No medicines found</h3>
+              <p>Try changing your search or category</p>
+            </div>
+          )}
         </div>
 
         {isCartOpen && (

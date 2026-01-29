@@ -202,3 +202,35 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
+
+.no-medicines {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px 20px;
+  margin-top: 30px;
+  border-radius: 14px;
+  background: var(--card-bg, #f7f8fa);
+  color: #444;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.no-medicines-icon {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.no-medicines h3 {
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+.no-medicines p {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+body.dark-theme .no-medicines {
+  background: #1e293b2a;
+  color: #ddd;
+}

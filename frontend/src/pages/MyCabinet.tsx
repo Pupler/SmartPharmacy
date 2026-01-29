@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { checkAuth } from '../api/auth';
 import './MyCabinet.css';
+import '../styles/MyCabinetModal.css';
 
 const MyCabinetPage = () => {
     const nagivate = useNavigate();
@@ -43,8 +44,46 @@ const MyCabinetPage = () => {
 
     const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
+    const [showModal, setShowModal] = useState(false);
+
+    const [newMdc, setNewMdc] = useState({
+        name: '',
+        dosage: '',
+        notes: ''
+    });
+
     return (
         <div className="cabinet-page">
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                    <h3>Add medication</h3>
+
+                    <input
+                        placeholder="Name"
+                        value={newMdc.name}
+                        onChange={e => setNewMdc({ ...newMdc, name: e.target.value })}
+                    />
+
+                    <input
+                        placeholder="Dosage"
+                        value={newMdc.dosage}
+                        onChange={e => setNewMdc({ ...newMdc, dosage: e.target.value })}
+                    />
+
+                    <textarea
+                        placeholder="Notes"
+                        value={newMdc.notes}
+                        onChange={e => setNewMdc({ ...newMdc, notes: e.target.value })}
+                    />
+
+                    <div className="modal-actions">
+                        <button>Save</button>
+                        <button onClick={() => setShowModal(false)}>Cancel</button>
+                    </div>
+                    </div>
+                </div>
+            )}
             <div className="cabinet-container">
                 <nav className="details-nav">
                     <Link to="/" className="back-btn">
@@ -81,7 +120,7 @@ const MyCabinetPage = () => {
                     </div>
 
                     <div className="quick-actions">
-                        <button className="action-btn">💊 Add Medication</button>
+                        <button className="action-btn" onClick={() => setShowModal(true)}>💊 Add Medication</button>
                         <button className="action-btn">📅 Add Appointment</button>
                         <button className="action-btn">⏰ Set Reminder</button>
                     </div>

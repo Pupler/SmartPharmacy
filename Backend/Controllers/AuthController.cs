@@ -16,15 +16,37 @@ using Microsoft.AspNetCore.Authorization;
 public class AuthController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
-
-    private readonly IPasswordHasher<User> _passwordHasher;
-
     private const string JwtKey = "SUPER_SECRET_KEY_123456789_SUPER_SECRET_KEY";
 
-    public AuthController(ApplicationDbContext context, IPasswordHasher<User> passwordHasher)
+    public AuthController(ApplicationDbContext context)
     {
         _context = context;
-        _passwordHasher = passwordHasher;
+    }
+
+    private static string GenerateJwtToken(User user)
+    {
+        var claims = new[]
+        {
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.Name, user.Username ?? string.Empty)  
+        };
+
+        var key = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(JwtKey)
+        );
+
+        var creds = new SigningCredentials(
+            key,
+            SecurityAlgorithms.HmacSha256
+        );
+
+        var token = new JwtSecurityToken(
+            claims: claims,
+            expires: DateTime.Now.AddHours(1),
+            signingCredentials: creds
+        );
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
     private static bool IsStrongPassword(string password)
@@ -120,10 +142,13 @@ public class AuthController : ControllerBase
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
+        var jwt = GenerateJwtToken(user);
+
         return Ok(new
         {
             message = "Registration successful!",
-            userId = user.Id
+            userId = user.Id,
+            token = jwt
         });
     }
 
@@ -168,29 +193,8 @@ public class AuthController : ControllerBase
             });   
         }
 
-        var claims = new[]
-        {
-          new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-          new Claim(ClaimTypes.Name, user.Username ?? string.Empty)  
-        };
-
-        var key = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(JwtKey)
-        );
-
-        var creds = new SigningCredentials(
-            key,
-            SecurityAlgorithms.HmacSha256
-        );
-
-        var token = new JwtSecurityToken(
-            claims: claims,
-            expires: DateTime.Now.AddHours(1),
-            signingCredentials: creds
-        );
-
-        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
+        var jwt = GenerateJwtToken(user);
+        
         return Ok(new
         {
             message = "Login successful!",

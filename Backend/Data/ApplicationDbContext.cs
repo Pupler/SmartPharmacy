@@ -9,53 +9,7 @@ namespace Backend.Data
         public DbSet<Medicine> Medicines { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            // Configuration of model Medicine
-            modelBuilder.Entity<Medicine>(entity =>
-            {
-                // Key
-                entity.HasKey(e => e.Id);
-                
-                // Autoincrement for MySQL
-                entity.Property(e => e.Id)
-                    .ValueGeneratedOnAdd();
-                
-                // Settings for Name
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(100);
-                
-                // Settings for Price
-                entity.Property(e => e.Price)
-                    .IsRequired()
-                    .HasColumnType("decimal(10,2)"); // MySQL type
-                
-                // Settings for Stock
-                entity.Property(e => e.Stock)
-                    .IsRequired()
-                    .HasDefaultValue(0); // Value by default
-                
-                // Settings for RequiresPrescription
-                entity.Property(e => e.RequiresPrescription)
-                    .IsRequired()
-                    .HasDefaultValue(false);
-
-                // Settings for Category
-                entity.Property(e => e.Category)
-                    .HasDefaultValue("Other");
-                
-                // Setting for Description
-                entity.Property(e => e.Description)
-                    .HasDefaultValue("No description");
-                
-                // Value by default for CreatedAt
-                entity.Property(e => e.CreatedAt)
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
-            });
-        }
+        public DbSet<Medication> Medications { get; set; } = null!;
 
         public bool CanConnect()
         {

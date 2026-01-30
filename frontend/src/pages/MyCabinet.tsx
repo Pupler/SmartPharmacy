@@ -52,6 +52,28 @@ const MyCabinetPage = () => {
         notes: ''
     });
 
+    const handleSaveMedication = async () => {
+        const token = localStorage.getItem('token');
+
+        const response = await fetch('api/medication/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(newMdc)
+        });
+
+        const data = response.json();
+
+        if (!response.ok) {
+            console.log("ERROR!");
+            return;
+        }
+
+        console.log("OKAY!");
+    };
+
     return (
         <div className="cabinet-page">
             {showModal && (
@@ -78,7 +100,7 @@ const MyCabinetPage = () => {
                     />
 
                     <div className="modal-actions">
-                        <button>Save</button>
+                        <button onClick={handleSaveMedication}>Save</button>
                         <button onClick={() => setShowModal(false)}>Cancel</button>
                     </div>
                     </div>

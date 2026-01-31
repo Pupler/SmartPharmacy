@@ -7,6 +7,14 @@ import { initialNotificationState, type NotificationState } from '../types/notif
 import './MyCabinet.css';
 import '../styles/MyCabinetModal.css';
 
+interface Medication {
+  id: number;
+  userId: number;
+  name: string;
+  dosage: string;
+  notes: string;
+}
+
 const MyCabinetPage = () => {
     const nagivate = useNavigate();
 
@@ -26,8 +34,27 @@ const MyCabinetPage = () => {
             }
         };
 
+        const fetchMedications = async () => {
+            const token = localStorage.getItem('token');
+
+            const response = await fetch('api/medications', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            const data = await response.json();
+
+            setMedications(data);
+        };
+
         initAuth();
+        fetchMedications();
     }, []);
+
+    const [medications, setMedications] = useState<Medication[]>([]);
 
     const [username, setUsername] = useState('User');
 
@@ -66,7 +93,7 @@ const MyCabinetPage = () => {
     const handleSaveMedication = async () => {
         const token = localStorage.getItem('token');
 
-        const response = await fetch('api/medication/add', {
+        const response = await fetch('api/medications/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -165,7 +192,7 @@ const MyCabinetPage = () => {
 
                     <div className="quick-stats">
                         <div className="stat-card">
-                            <span className="stat-number">0</span>
+                            <span className="stat-number">{medications.length}</span>
                             <span className="stat-label">Medications</span>
                         </div>
                         <div className="stat-card">

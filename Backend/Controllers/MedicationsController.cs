@@ -3,14 +3,34 @@ using Backend.Models;
 using Backend.Data;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class MedicationController(ApplicationDbContext context) : ControllerBase
+    public class MedicationsController(ApplicationDbContext context) : ControllerBase
     {
         private readonly ApplicationDbContext _context = context;
+
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Medication>>> GetMedications()
+        {
+            var userIdClaims = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (userIdClaims == null)
+            {
+                return BadRequest(new
+                {
+                    message = "Unauthorized"
+                });
+            }
+
+            int userId = int.Parse(userIdClaims);
+
+            return await _context.Medications.Where(m => m.UserId == userId).ToListAsync();
+        }
 
         [Authorize]
         [HttpPost("add")]

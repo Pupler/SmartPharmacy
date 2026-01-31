@@ -51,6 +51,12 @@ const MyCabinetPage = () => {
 
     const [showModal, setShowModal] = useState(false);
 
+    const [activities, setActivities] = useState<string[]>([]);
+
+    const addActivity = (message: string) => {
+        setActivities(prev => [message, ...prev]);
+    };
+
     const [newMdc, setNewMdc] = useState({
         name: '',
         dosage: '',
@@ -90,6 +96,7 @@ const MyCabinetPage = () => {
         }
 
         showNotification(setNotification, data?.message || "Medication added!", "success");
+        addActivity(`Added medication: ${newMdc.name}`);
         setNewMdc({
             name: '',
             dosage: '',
@@ -177,10 +184,16 @@ const MyCabinetPage = () => {
                         <button className="action-btn">⏰ Set Reminder</button>
                     </div>
 
-                    <div className="recent-section">
-                        <h3>Recent Activity</h3>
+                <div className="recent-section">
+                    <h3>Recent Activity</h3>
+                    {activities.length == 0 ? (
                         <p className="empty-message">No recent activity yet</p>
-                    </div>
+                    ) : (
+                        <ul>
+                        {activities.map((act, i) => <li key={i}>{act}</li>)}
+                        </ul>
+                    )}
+                </div>
                 </main>
             </div>
 

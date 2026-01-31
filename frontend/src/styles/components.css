@@ -234,3 +234,19 @@ body.dark-theme .no-medicines {
   background: #1e293b2a;
   color: #ddd;
 }
+
+.recent-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.recent-section li {
+  padding: 4px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  color: #333;
+}
+
+body.dark-theme .recent-section li {
+  color: #f3f3f3;
+}

@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { checkAuth } from '../api/auth';
+import Notification from '../components/Notification/Notification';
+import { showNotification } from '../utils/notificationHelpers';
+import { initialNotificationState, type NotificationState } from '../types/notification';
 import './MyCabinet.css';
 import '../styles/MyCabinetModal.css';
 
@@ -27,6 +30,8 @@ const MyCabinetPage = () => {
     }, []);
 
     const [username, setUsername] = useState('User');
+
+    const [notification, setNotification] = useState<NotificationState>(initialNotificationState);
 
     const [isDarkMode, setIsDarkMode] = useState(() => {
         return localStorage.getItem('theme') === 'dark';
@@ -64,18 +69,43 @@ const MyCabinetPage = () => {
             body: JSON.stringify(newMdc)
         });
 
-        const data = response.json();
+        const text = await response.text();
+
+        let data: any = null;
+
+        try {
+            data = text ? JSON.parse(text) : null;
+        } catch {
+            throw new Error('Invalid server response!');
+        }
 
         if (!response.ok) {
-            console.log("ERROR!");
+            showNotification(setNotification, data?.message || "Failed to add medication!", "error");
+            setNewMdc({
+                name: '',
+                dosage: '',
+                notes: ''
+            })
             return;
         }
 
-        console.log("OKAY!");
+        showNotification(setNotification, data?.message || "Medication added!", "success");
+        setNewMdc({
+            name: '',
+            dosage: '',
+            notes: ''
+        })
     };
 
     return (
         <div className="cabinet-page">
+            {notification.show && (
+                <Notification
+                    message={notification.message}
+                    type={notification.type}
+                    onClose={() => setNotification({ ...notification, show: false })}
+                />
+            )}
             {showModal && (
                 <div className="modal-overlay">
                     <div className="modal">

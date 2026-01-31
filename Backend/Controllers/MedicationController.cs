@@ -18,9 +18,21 @@ namespace Backend.Controllers
         {
             var userIdClaims = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
+            if (userIdClaims == null)
+            {
+                return Unauthorized(new
+                {
+                    message = "Unauthorized"
+                });
+            }
+
             int userId = int.Parse(userIdClaims);
 
-            if (data == null || !data.TryGetValue("name", out string? name))
+            string name = data["name"];
+            string dosage = data["dosage"];
+            string notes = data["notes"];
+
+            if (string.IsNullOrWhiteSpace(name))
             {
                 return BadRequest(new
                 {
@@ -31,8 +43,8 @@ namespace Backend.Controllers
             var medication = new Medication
             {
                 Name = name,
-                Dosage = null,
-                Notes = null,
+                Dosage = dosage,
+                Notes = notes,
                 UserId = userId
             };
 
@@ -41,7 +53,7 @@ namespace Backend.Controllers
 
             return Ok(new
             {
-                message = "ALLES GUT!"
+                message = $"Medication {name} added!"
             });
         }
     }

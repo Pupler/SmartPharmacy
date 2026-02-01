@@ -18,6 +18,24 @@ interface Medication {
 const MyCabinetPage = () => {
     const nagivate = useNavigate();
 
+    const [medications, setMedications] = useState<Medication[]>([]);
+
+    const fetchMedications = async () => {
+        const token = localStorage.getItem('token');
+
+        const response = await fetch('api/medications', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const data = await response.json();
+
+        setMedications(data);
+    };
+
     useEffect(() => {
         const initAuth = async () => {
             try {
@@ -34,27 +52,13 @@ const MyCabinetPage = () => {
             }
         };
 
-        const fetchMedications = async () => {
-            const token = localStorage.getItem('token');
-
-            const response = await fetch('api/medications', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-
-            const data = await response.json();
-
-            setMedications(data);
-        };
-
         initAuth();
         fetchMedications();
     }, []);
 
-    const [medications, setMedications] = useState<Medication[]>([]);
+    useEffect(() => {
+        fetchMedications();
+    }, [medications]);
 
     const [username, setUsername] = useState('User');
 
@@ -76,7 +80,8 @@ const MyCabinetPage = () => {
 
     const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
-    const [showModal, setShowModal] = useState(false);
+    type ModalType = 'add' | 'list' | null;
+    const [modalType, setModalType] = useState<ModalType>(null);
 
     const [activities, setActivities] = useState<string[]>([]);
 
@@ -140,35 +145,71 @@ const MyCabinetPage = () => {
                     onClose={() => setNotification({ ...notification, show: false })}
                 />
             )}
-            {showModal && (
-                <div className="modal-overlay">
-                    <div className="modal">
-                    <h3>Add medication</h3>
 
-                    <input
-                        placeholder="Name"
-                        value={newMdc.name}
-                        onChange={e => setNewMdc({ ...newMdc, name: e.target.value })}
-                    />
+            {modalType && (
+            <div className="modal-overlay">
+                <div className="modal">
 
-                    <input
-                        placeholder="Dosage"
-                        value={newMdc.dosage}
-                        onChange={e => setNewMdc({ ...newMdc, dosage: e.target.value })}
-                    />
+                {modalType === 'add' && (
+                    <>
+                        <h3>Add medication</h3>
 
-                    <textarea
-                        placeholder="Notes"
-                        value={newMdc.notes}
-                        onChange={e => setNewMdc({ ...newMdc, notes: e.target.value })}
-                    />
+                        <input
+                            placeholder="Name"
+                            value={newMdc.name}
+                            onChange={e => setNewMdc({ ...newMdc, name: e.target.value })}
+                        />
 
-                    <div className="modal-actions">
-                        <button onClick={handleSaveMedication}>Save</button>
-                        <button onClick={() => setShowModal(false)}>Cancel</button>
-                    </div>
-                    </div>
+                        <input
+                            placeholder="Dosage"
+                            value={newMdc.dosage}
+                            onChange={e => setNewMdc({ ...newMdc, dosage: e.target.value })}
+                        />
+
+                        <textarea
+                            placeholder="Notes"
+                            value={newMdc.notes}
+                            onChange={e => setNewMdc({ ...newMdc, notes: e.target.value })}
+                        />
+
+                        <div className="modal-actions">
+                            <button onClick={handleSaveMedication}>Save</button>
+                            <button onClick={() => setModalType(null)}>Cancel</button>
+                        </div>
+                    </>
+                )}
+
+                {modalType === 'list' && (
+                    <>
+                    <h3>Your medications</h3>
+
+                    {medications.length === 0 ? (
+                        <p>No medications yet</p>
+                    ) : (
+                        <ul className="medication-list">
+                            {medications.map(m => (
+                                <li key={m.id} className="medication-item">
+                                    <div className="medication-header">
+                                        <span className="medication-name">{m.name}</span>
+                                        <span className="medication-dosage">{m.dosage}</span>
+                                    </div>
+
+                                    {m.notes && (
+                                        <div className="medication-notes">
+                                        📝 {m.notes}
+                                        </div>
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+
+                    <button onClick={() => setModalType(null)}>Close</button>
+                    </>
+                )}
+
                 </div>
+            </div>
             )}
             <div className="cabinet-container">
                 <nav className="details-nav">
@@ -191,7 +232,10 @@ const MyCabinetPage = () => {
                     </div>
 
                     <div className="quick-stats">
-                        <div className="stat-card">
+                        <div
+                        className="stat-card"
+                        onClick={() => setModalType('list')}
+                        >
                             <span className="stat-number">{medications.length}</span>
                             <span className="stat-label">Medications</span>
                         </div>
@@ -206,7 +250,7 @@ const MyCabinetPage = () => {
                     </div>
 
                     <div className="quick-actions">
-                        <button className="action-btn" onClick={() => setShowModal(true)}>💊 Add Medication</button>
+                        <button className="action-btn" onClick={() => setModalType('add')}>💊 Add Medication</button>
                         <button className="action-btn">📅 Add Appointment</button>
                         <button className="action-btn">⏰ Set Reminder</button>
                     </div>

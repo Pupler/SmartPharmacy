@@ -19,7 +19,7 @@ body:not(.dark-theme) .cabinet-container {
     align-items: center;
     padding: 20px 0;
     margin: 0 20px 0 20px;
-    border-bottom: 2px solid #4a6fa5;
+    border-bottom: 2px solid #6366f1;
     margin-bottom: 30px;
 }
 
@@ -29,7 +29,7 @@ body:not(.dark-theme) .cabinet-container {
 }
 
 .theme-btn {
-    background: #4a6fa5;
+    background: #6366f1;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -64,6 +64,17 @@ body:not(.dark-theme) .cabinet-container {
     text-align: center;
     border-radius: 10px;
     max-width: 150px;
+    transition: 
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.stat-card:hover {
+    cursor: pointer;
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, 0.03);
 }
 
 body.dark-theme .stat-card {
@@ -81,7 +92,7 @@ body:not(.dark-theme) .stat-card {
     display: block;
     font-size: 2.5rem;
     font-weight: bold;
-    color: #4a6fa5;
+    color: #6366f1;
 }
 
 .stat-label {
@@ -105,7 +116,7 @@ body.dark-theme .stat-label {
     padding: 12px 20px;
     border: none;
     border-radius: 8px;
-    background: #4a6fa5;
+    background: #6366f1;
     color: white;
     cursor: pointer;
     font-size: 1rem;
@@ -114,7 +125,7 @@ body.dark-theme .stat-label {
 
 .action-btn:hover {
     transform: translateY(-2px);
-    background: #3a5a85;
+    background: #494bc9;
 }
 
 .recent-section {

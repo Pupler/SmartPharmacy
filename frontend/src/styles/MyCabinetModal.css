@@ -1,76 +1,93 @@
-/* Modal overlay*/
+/* ============================= */
+/* MODAL OVERLAY (BACKGROUND)    */
+/* ============================= */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.658);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  animation: fadeIn 0.3s ease forwards;
+  animation: overlayFadeIn 0.3s ease forwards;
 }
 
-/* Animation appearing */
-@keyframes fadeIn {
+/* Overlay fade animation */
+@keyframes overlayFadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-/* Modal window */
+/* ============================= */
+/* MODAL CONTAINER               */
+/* ============================= */
 .modal {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 24px;
   width: 400px;
   max-width: 90%;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  padding: 24px;
+  border-radius: 14px;
+  background: var(--modal-bg);
+  color: var(--text-color);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   display: flex;
   flex-direction: column;
   gap: 16px;
-  transform: translateY(-20px);
-  animation: slideDown 0.3s ease forwards;
+  animation: modalSlideDown 0.3s ease forwards;
 }
 
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Modal appear animation */
+@keyframes modalSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+/* Modal title */
 .modal h3 {
   margin: 0;
-  font-size: 1.5rem;
   text-align: center;
-  color: #5f5f5fc4;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--title-color);
 }
 
-/* Inputs */
+/* ============================= */
+/* INPUTS & TEXTAREA             */
+/* ============================= */
 .modal input,
 .modal textarea {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text-color);
+  font-size: 0.95rem;
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Input focus state */
 .modal input:focus,
 .modal textarea:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0,123,255,0.5);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.25);
 }
 
-/* Text area */
+/* Textarea resize */
 .modal textarea {
   resize: vertical;
   min-height: 80px;
 }
 
-/* Modal buttons */
+/* ============================= */
+/* ACTION BUTTONS (ADD MODAL)    */
+/* ============================= */
 .modal-actions {
   display: flex;
   justify-content: flex-end;
@@ -79,55 +96,121 @@
 
 .modal-actions button {
   padding: 8px 16px;
-  border-radius: 8px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.modal-actions button:hover {
+  transform: translateY(-1px);
+}
+
+/* Primary button */
+.modal-actions button:first-child {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Secondary button */
+.modal-actions button:last-child {
+  background: var(--button-secondary);
+  color: var(--text-color);
+}
+
+/* ============================= */
+/* MEDICATION LIST MODAL         */
+/* ============================= */
+.medication-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* ===== MEDICATION ITEM ===== */
+.medication-item {
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.medication-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* ===== HEADER ===== */
+.medication-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.medication-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.medication-dosage {
+  font-size: 0.9rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* ===== NOTES ===== */
+.medication-notes {
+  font-size: 0.9rem;
+  opacity: 0.85;
+  line-height: 1.4;
+}
+
+/* Close button (list modal) */
+.modal > button {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.2s ease;
+  font-weight: 600;
+  background: var(--accent);
+  color: #fff;
 }
 
-.modal-actions button:first-child {
-  background-color: #007bff;
-  color: white;
+/* ============================= */
+/* THEME VARIABLES               */
+/* ============================= */
+:root {
+  --modal-bg: #ffffff;
+  --card-bg: #f3f4f6;
+  --input-bg: #ffffff;
+  --input-border: #d1d5db;
+  --text-color: #1f2937;
+  --title-color: #374151;
+  --button-secondary: #e5e7eb;
+  --accent: #6366f1;
 }
 
-.modal-actions button:first-child:hover {
-  background-color: #0056b3;
-}
-
-.modal-actions button:last-child {
-  background-color: #ccc;
-  color: #333;
-}
-
-.modal-actions button:last-child:hover {
-  background-color: #999;
-}
-
-/* Dark mode support */
-body.dark-theme .modal {
-  background-color: #1e1e1e;
-  color: #f0f0f0;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-}
-
-body.dark-theme .modal input,
-body.dark-theme .modal textarea {
-  background-color: #2c2c2c;
-  border: 1px solid #555;
-  color: #f0f0f0;
-}
-
-body.dark-theme .modal input:focus,
-body.dark-theme .modal textarea:focus {
-  border-color: #1a73e8;
-  box-shadow: 0 0 5px rgba(26,115,232,0.5);
-}
-
-body.dark-theme .modal-actions button:first-child {
-  background-color: #1a73e8;
-}
-
-body.dark-theme .modal-actions button:first-child:hover {
-  background-color: #155ab6;
+/* ============================= */
+/* DARK THEME SUPPORT            */
+/* ============================= */
+body.dark-theme {
+  --modal-bg: #0f172a;
+  --card-bg: #1e293b;
+  --input-bg: #020617;
+  --input-border: #334155;
+  --text-color: #e5e7eb;
+  --title-color: #f1f5f9;
+  --button-secondary: #334155;
+  --accent: #818cf8;
 }

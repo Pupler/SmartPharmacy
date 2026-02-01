@@ -26,6 +26,8 @@ A modern full-stack web application for **medication management**, **pharmacy di
   Filter medicines by name or category.
 - 💊 **Basic Medicine Cabinet**  
   Simple list to track your medications.
+- 🔒 **Secure Authentication**    
+  Safe user login/registration with JWT tokens and password hashing
 - 🎯 **Clean User Interface**  
   Minimalist and easy to navigate.
 - 💾 **Local Data Storage**  

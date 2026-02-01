@@ -56,10 +56,6 @@ const MyCabinetPage = () => {
         fetchMedications();
     }, []);
 
-    useEffect(() => {
-        fetchMedications();
-    }, [medications]);
-
     const [username, setUsername] = useState('User');
 
     const [notification, setNotification] = useState<NotificationState>(initialNotificationState);
@@ -80,7 +76,7 @@ const MyCabinetPage = () => {
 
     const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
-    type ModalType = 'add' | 'list' | null;
+    type ModalType = 'add-mdc' | 'add-appointment' | 'set-reminder' | 'medications-list' | 'appointments-list' | 'reminders-list' | null;
     const [modalType, setModalType] = useState<ModalType>(null);
 
     const [activities, setActivities] = useState<string[]>([]);
@@ -134,6 +130,8 @@ const MyCabinetPage = () => {
             dosage: '',
             notes: ''
         })
+        
+        await fetchMedications();
     };
 
     return (
@@ -150,7 +148,7 @@ const MyCabinetPage = () => {
             <div className="modal-overlay">
                 <div className="modal">
 
-                {modalType === 'add' && (
+                {modalType === 'add-mdc' && (
                     <>
                         <h3>Add medication</h3>
 
@@ -179,7 +177,7 @@ const MyCabinetPage = () => {
                     </>
                 )}
 
-                {modalType === 'list' && (
+                {modalType === 'medications-list' && (
                     <>
                     <h3>Your medications</h3>
 
@@ -234,7 +232,7 @@ const MyCabinetPage = () => {
                     <div className="quick-stats">
                         <div
                         className="stat-card"
-                        onClick={() => setModalType('list')}
+                        onClick={() => setModalType('medications-list')}
                         >
                             <span className="stat-number">{medications.length}</span>
                             <span className="stat-label">Medications</span>
@@ -250,7 +248,7 @@ const MyCabinetPage = () => {
                     </div>
 
                     <div className="quick-actions">
-                        <button className="action-btn" onClick={() => setModalType('add')}>💊 Add Medication</button>
+                        <button className="action-btn" onClick={() => setModalType('add-mdc')}>💊 Add Medication</button>
                         <button className="action-btn">📅 Add Appointment</button>
                         <button className="action-btn">⏰ Set Reminder</button>
                     </div>

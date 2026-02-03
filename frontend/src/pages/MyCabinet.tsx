@@ -15,10 +15,36 @@ interface Medication {
   notes: string;
 }
 
+interface Appointment {
+  id: number;
+  userId: number;
+  description: string;
+  doctorName: string;
+  appointmentDate: string;
+}
+
 const MyCabinetPage = () => {
     const nagivate = useNavigate();
 
     const [medications, setMedications] = useState<Medication[]>([]);
+
+    const [appointments, setAppointments] = useState<Appointment[]>([]);
+
+    const fetchAppointments = async () => {
+        const token = localStorage.getItem('token');
+
+        const response = await fetch('api/appointments', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const data = await response.json();
+
+        setAppointments(data);
+    }
 
     const fetchMedications = async () => {
         const token = localStorage.getItem('token');
@@ -54,6 +80,7 @@ const MyCabinetPage = () => {
 
         initAuth();
         fetchMedications();
+        fetchAppointments();
     }, []);
 
     const [username, setUsername] = useState('User');
@@ -238,7 +265,7 @@ const MyCabinetPage = () => {
                             <span className="stat-label">Medications</span>
                         </div>
                         <div className="stat-card">
-                            <span className="stat-number">0</span>
+                            <span className="stat-number">{appointments.length}</span>
                             <span className="stat-label">Appointments</span>
                         </div>
                         <div className="stat-card">
